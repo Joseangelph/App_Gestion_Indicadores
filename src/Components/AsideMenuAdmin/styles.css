@@ -1,0 +1,14 @@
+.aside-menu, .aside-menu-container{
+    top: 77px;
+    height: calc(100vh - 77px);
+}
+
+.operation {
+    padding-top: 10px;
+}
+
+
+.icon {
+    margin-top: 3px;
+    margin-right: 2px;
+}

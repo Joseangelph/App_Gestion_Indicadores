@@ -1,0 +1,90 @@
+import { useContext, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
+
+const FormAutenticar = ({setTieneCuenta}) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const context = useContext(AuthContext)
+  let navigate= useNavigate();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/sesion/api/token/', { username, password });
+      // Almacenar el token en el localstorage
+      console.log(response)
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+      navigate("/home");
+      context.setPush(!context.push)
+
+    } catch (error) {
+      // alert("Error al iniciar sesión");
+      if (error.response) {
+        console.log('Error de autenticación:', error.response.data);
+        alert('Error: ' + error.response.data.detail); // El mensaje exacto del backend
+      } else {
+        console.log('Error en la solicitud:', error.message);
+      }
+    }
+  };
+
+  
+  return (
+    <div className="form-container z-10 shadow-2xl flex  flex-col items-center justify-center w-1/3 h-96 bg-sky-200 rounded-lg">
+      <p className=' Titulo pb-5 text-2xl '> Bienvenido a SIGIMI </p>
+      <form onSubmit={handleSubmit} className="w-full max-w-xs rounded-sm bg-sky-200 p-3">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-lg font-semibold  mb-2" htmlFor="username">
+            Nombre de usuario
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Introduzca el nombre de usuario" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-700 text-lg font-semibold mb-2" htmlFor="password">
+            Contraseña
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Introduzca la contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <div className="flex items-center justify-center">
+            
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            Aceptar
+          </button>
+          
+        </div>
+      </form>
+
+            <button
+                className="btnCuenta mt-3"
+                onClick={() => setTieneCuenta(false)}
+            >
+                ¿No tienes cuenta?
+            </button>
+    </div>
+  );
+
+};
+
+export default FormAutenticar;
+
+
+    // const registerUser = async () => {
+    //   try {
+    //     const response = await axios.post('http://localhost:8000/sesion/register/', {
+    //       username: 'jose',
+    //       password: '12345',
+    //       first_name: 'jose',
+    //       last_name: 'padron',
+    //       role: 'administrador' // o 'admin'
+    //     });
+    //     console.log('Usuario registrado con éxito:', response.data);
+    //   } catch (error) {
+    //     console.error('Error al registrar el usuario:', error);
+    //   }
+    // };
