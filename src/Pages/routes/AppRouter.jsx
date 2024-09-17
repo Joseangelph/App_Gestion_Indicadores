@@ -4,6 +4,7 @@ import { PaginaInicio } from '../../Components/PaginaInicio'
 import { RutasPublicas } from './RutasPublicas'
 import { RutasAdministrador } from './RutasAdministrador'
 import { RutasExperto } from './RutasExperto'
+import { RutasGenerales } from './RutasGenerales'
 import RouterAdmin from './RouterAdmin'
 import RouterExp from './RouterExp'
 
@@ -19,21 +20,24 @@ function AppRouter() {
                     <PaginaInicio />
                 </RutasPublicas>
             } />
-            
-            <Route path="/*" element={
-                <RutasExperto >
-                    <RouterExp/>
-                </RutasExperto>
-            } />
 
             <Route path="/*" element={
-                <RutasAdministrador >
-                    <RouterAdmin/>
-                </RutasAdministrador>
+                <RutasGenerales>
+                    <>
+                    <RutasAdministrador >
+                        <RouterAdmin/>
+                    </RutasAdministrador>
+
+                    <RutasExperto >
+                        <RouterExp/>
+                    </RutasExperto>
+
+                    
+                    </>
+                    
+                </RutasGenerales> 
             } />
-
-            
-
+  
         </Routes>
     </BrowserRouter>
 

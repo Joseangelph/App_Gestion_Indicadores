@@ -3,31 +3,23 @@ import { Navigate } from "react-router-dom";
 import { isExpired } from "react-jwt";
 import PropTypes from 'prop-types';
 import { AuthContext } from "../../Context/AuthContext";
-// import { RutasExperto } from "./RutasExperto";
 
 
-export const RutasAdministrador = ({ children }) => {
+export const RutasGenerales = ({ children }) => {
 
     const { usuario } = useContext(AuthContext);
 
     const tokenExpired = isExpired(usuario.tokenAccess);
 
-    console.log('este es el administador')
-
-    if(!tokenExpired){
-        if(usuario.role === "administrador"){
+    if(!tokenExpired ){
+        if((usuario.role === "experto")|| (usuario.role === "administrador") ){
             return <>{children} </>
         }
-        // else {
-        //     return <Navigate to='/home'/>
-        // }
+        else {
+            return <Navigate to='/home'/>
+        }
         
     }
-
-    // if( usuario.role === "administrador" && !tokenExpired ){
-    //     return <>{children}</>
-    // }
-    
 
     else{
         return <Navigate to='/' />
@@ -37,6 +29,6 @@ export const RutasAdministrador = ({ children }) => {
 
 
 
-RutasAdministrador.propTypes = {
+RutasGenerales.propTypes = {
     children: PropTypes.element
 }

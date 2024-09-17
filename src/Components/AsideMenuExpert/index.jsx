@@ -1,12 +1,14 @@
-import { NavLink } from "react-router-dom"
+import { NavLink} from "react-router-dom"
 import './styles.css'
 import { FaHome } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
 
 
+
 function AsideMenuExpert(){
 
     const activeStyle = 'underline underline-offset-4'
+
 
     return (
         <div className="aside-menu-container relative w-1/5">
@@ -33,8 +35,8 @@ function AsideMenuExpert(){
                         </NavLink>
                     </li>
                     {/* <li className="py-2">
-                        <NavLink 
-                            to='/crearIndicadores'
+                        <NavLink
+                            to={'/crearIndicadores'}
                             className={({ isActive}) =>
                             isActive ? activeStyle : undefined
                             }

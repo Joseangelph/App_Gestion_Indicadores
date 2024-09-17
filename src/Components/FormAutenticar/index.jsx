@@ -3,12 +3,42 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
+import { decodeToken, isExpired } from "react-jwt";
+import { types } from '../../types/types';
+import PropTypes from 'prop-types';
+
 const FormAutenticar = ({setTieneCuenta}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // const context = useContext(AuthContext)
 
-  const context = useContext(AuthContext)
-  let navigate= useNavigate();
+  const navegar= useNavigate();
+
+  const { dispatch } = useContext(AuthContext);
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post('http://127.0.0.1:8000/sesion/api/token/', { username, password });
+  //     // Almacenar el token en el localstorage
+  //     console.log(response)
+  //     localStorage.setItem('access_token', response.data.access);
+  //     localStorage.setItem('refresh_token', response.data.refresh);
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+  //     navigate("/home");
+  //     context.setPush(!context.push)
+
+  //   } catch (error) {
+  //     // alert("Error al iniciar sesión");
+  //     if (error.response) {
+  //       console.log('Error de autenticación:', error.response.data);
+  //       alert('Error: ' + error.response.data.detail); // El mensaje exacto del backend
+  //     } else {
+  //       console.log('Error en la solicitud:', error.message);
+  //     }
+  //   }
+  // };
 
 
   const handleSubmit = async (e) => {
@@ -17,11 +47,45 @@ const FormAutenticar = ({setTieneCuenta}) => {
       const response = await axios.post('http://127.0.0.1:8000/sesion/api/token/', { username, password });
       // Almacenar el token en el localstorage
       console.log(response)
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
-      navigate("/home");
-      context.setPush(!context.push)
+      // localStorage.setItem('access_token', response.data.access);
+      // localStorage.setItem('refresh_token', response.data.refresh);
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+
+      const tokenAccess = response.data.access;
+      const tokenRefresh = response.data.refresh;
+      const role= response.data.role;
+      const first_name= response.data.first_name;
+      const last_name= response.data.last_name;
+      const nombreUsuario= response.data.username;
+
+
+      const usuario = decodeToken(tokenAccess).username;
+
+      
+      if (!isExpired(tokenAccess)) {
+
+      
+
+        const accion = {
+            type: types.login,
+            payload: {
+                usuario,
+                nombreUsuario,
+                first_name,
+                last_name,
+                role,
+                tokenAccess,
+                tokenRefresh
+            }
+        }
+
+        dispatch(accion);
+        
+        navegar('/home', {
+            replace: true
+        });
+        
+      }
 
     } catch (error) {
       // alert("Error al iniciar sesión");
@@ -70,6 +134,10 @@ const FormAutenticar = ({setTieneCuenta}) => {
   );
 
 };
+
+FormAutenticar.propTypes = {
+  setTieneCuenta: PropTypes.func.isRequired
+}
 
 export default FormAutenticar;
 

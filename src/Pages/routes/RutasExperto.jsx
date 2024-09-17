@@ -9,15 +9,22 @@ export const RutasExperto = ({ children }) => {
 
     const { usuario } = useContext(AuthContext);
 
-    const tokenExpired = isExpired(usuario.token_access);
+    const tokenExpired = isExpired(usuario.tokenAccess);
 
-    if( (usuario.role === "administrador"||usuario.role === "experto") && tokenExpired ){
-        return <>{children} </>
+    console.log("este es el experto")
+
+    if(!tokenExpired ){
+        if((usuario.role === "experto")){
+            return <>{children} </>
+        }
+        // else {
+        //     return <Navigate to='/home'/>
+        // }
         
     }
 
     else{
-        return <Navigate to='/home' />
+        return <Navigate to='/' />
     }
 
 }

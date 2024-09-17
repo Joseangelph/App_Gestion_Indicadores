@@ -11,7 +11,9 @@ export const RutasPublicas = ({ children }) => {
     const {usuario} = useContext(AuthContext)
 
     // console.log()
-    const tokenExpired = isExpired(usuario.token_access);
+    const tokenExpired = isExpired(usuario.tokenAccess);
+ 
+
 
     return !tokenExpired ? <Navigate to='/' /> : children;
 }

@@ -1,25 +1,55 @@
-import { useState } from "react"
 import { useNavigate, NavLink } from "react-router-dom"
 import DefaultProfilePic from "./DefaultProfilePic.jpeg"
 import { AuthContext } from "../../Context/AuthContext"
 import { useContext } from "react"
 import { IoIosLogOut } from "react-icons/io";
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+// import NavigateNextSharp from "@mui/icons-material/NavigateNextSharp";
+import { types } from '../../types/types';
 
 
 function Navbar() {
 
-    const activeStyle = 'underline underline-offset-4'
-    const  [profilePicture, setProfilePicture]= useState(DefaultProfilePic)
-    const context = useContext(AuthContext)
-    let navigate= useNavigate();
+    // const activeStyle = 'underline underline-offset-4'
+    // const  [profilePicture, setProfilePicture]= useState(DefaultProfilePic)
+    const profilePicture = DefaultProfilePic
+    const {usuario} = useContext(AuthContext)
+
+    const navegar = useNavigate();
+    const { dispatch } = useContext(AuthContext);
+    // const { usuario } = useContext(AuthContext);
+    
 
     const logout = () => {
-        navigate("/")
-        context.setUsuario("");
-        context.setAutenticado(false);
-        localStorage.removeItem('access_token');
+        // NavigateNextSharp("/")
+        // context.setUsuario("");
+        // context.setAutenticado(false);
+        // localStorage.removeItem('access_token');
+        navegar('/', {
+            replace: true
+        });
+        dispatch({ type: types.logout })
       
     };
+
+
+    
+    
+
+    // const handleCerrarSesion = async () => {
+    //     try {
+    //         const resp = await cerrarSesion(usuario.tokenAccess);
+    //         dispatch({ type: types.logout })
+    //         navegar('/', {
+    //             replace: true
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+
+    // }
+
 
     return (
         <nav className="flex justify-between border border-black bg-slate-200 items-center fixed top-0 z-10 w-full">
@@ -36,19 +66,20 @@ function Navbar() {
                     
                     <div className="flex items-center ml-3">
                         <p>Bienvenido</p>
-                        <span className="font-semibold m-2"> {context.username}</span>
-                        <img src={profilePicture} alt="Perfil" className="w-8 h-8 rounded-full object-cover" />
+                        <span className="font-semibold m-2"> {usuario.nombreUsuario}</span>
+                        <Tooltip title={[usuario.role," ",usuario.first_name," ", usuario.last_name]}>
+                            <IconButton>
+                            <img src={profilePicture} alt="Perfil" className="w-8 h-8 rounded-full object-cover" />
+                            </IconButton>
+                        </Tooltip>
+                        
                     </div>
                     <div className="mt-1.5 ml-5">
-                        <NavLink
+                        <button
                             onClick={()=>logout()}
-                            to='/'
-                            className={ ({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
                         >
                             <IoIosLogOut size={25} />
-                        </NavLink>
+                        </button>
                     </div>
                     
 

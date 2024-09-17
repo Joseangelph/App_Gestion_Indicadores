@@ -1,14 +1,33 @@
 import './App.css'
 import AppRouter from '../routes/AppRouter'
-import { AuthProvider } from '../../Context/AuthContext'
+import { AuthContext } from '../../Context/AuthContext';
+import { useEffect, useReducer } from 'react';
+import { authReducer } from '../../auth/authReducer';
+// import { AuthProvider } from '../../Context/AuthContext';
 
+const init = () => {
+  return JSON.parse( localStorage.getItem('usuario') ) || { logged: false, tokenAccess: '' };
+}
 
 function App() {
 
+  const [ usuario, dispatch ] = useReducer( authReducer, {}, init )
+
+  useEffect( () => {
+    if( !usuario ) return;
+
+
+    localStorage.setItem( 'usuario', JSON.stringify( usuario) );
+  }, [usuario]);
+
+
   return (
-      <AuthProvider>
+      <AuthContext.Provider value={{
+        usuario,
+        dispatch,
+      }}>
         <AppRouter/>
-      </AuthProvider>
+      </AuthContext.Provider>
   )
 }
 
