@@ -46,6 +46,20 @@ function AsideMenuAdmin(){
                             
                         </NavLink>
                     </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarUsuarios'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar Usuarios
+                            </div>
+                            
+                        </NavLink>
+                    </li>
                 </ul>
             </aside>
         </div>
