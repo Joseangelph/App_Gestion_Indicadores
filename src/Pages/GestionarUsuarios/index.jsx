@@ -1,8 +1,8 @@
 import Layout from "../../Components/Layout"
 import ListaUsuarios from "../../Components/ListaUsuarios"
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import {Button, Typography} from '@mui/material';
 import { useNavigate } from "react-router-dom"
+import "./styles.css"
 
 function GestionarUsuarios() {
 
@@ -10,16 +10,23 @@ function GestionarUsuarios() {
 
     return (
         <Layout>
-          <div className="mt-10 mb-5">
-          <Stack spacing={2} direction="row">
-            <Button onClick={()=>navegar('/crearUsuarios')} variant="outlined">Crear Usuario</Button>
-            {/* <Button variant="outlined">Outlined</Button>
-            <Button variant="outlined">Outlined</Button> */}
-          </Stack>
+          <div className="flex flex-col justify-center items-center">
+            <Typography 
+              variant="h4" 
+              className="text-4xl font-bold text-blue-600"
+              sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
+              >
+              Gestionar Usuarios
+            </Typography>
+            <div className="mt-5 mb-5">
+              <Button onClick={()=>navegar('/crearUsuarios')} variant="contained">Crear Usuario</Button>
+
+            </div>
+            <div>
+              <ListaUsuarios/>
+            </div>
           </div>
-          <div>
-            <ListaUsuarios/>
-          </div>
+          
           
         </Layout>
     )

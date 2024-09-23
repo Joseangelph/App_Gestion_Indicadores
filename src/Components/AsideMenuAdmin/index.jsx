@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom"
-import './styles.css'
 import { FaHome } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
+import { FaUserPen } from "react-icons/fa6";
+import './styles.css'
 
 
 function AsideMenuAdmin(){
@@ -54,7 +55,7 @@ function AsideMenuAdmin(){
                             }
                         >
                             <div className="flex">
-                                <IoIosCreate className="icon" />
+                                <FaUserPen className="icon"/>
                                 Gestionar Usuarios
                             </div>
                             
