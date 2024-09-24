@@ -61,6 +61,8 @@ const FormAutenticar = ({setTieneCuenta}) => {
 
       const usuario = decodeToken(tokenAccess).username;
 
+      localStorage.setItem('access_token', tokenAccess);
+      localStorage.setItem('refresh_token', tokenRefresh);
       
       if (!isExpired(tokenAccess)) {
 
@@ -88,7 +90,7 @@ const FormAutenticar = ({setTieneCuenta}) => {
       }
 
     } catch (error) {
-      // alert("Error al iniciar sesión");
+      alert("Error al iniciar sesión");
       if (error.response) {
         console.log('Error de autenticación:', error.response.data);
         alert('Error: ' + error.response.data.detail); // El mensaje exacto del backend

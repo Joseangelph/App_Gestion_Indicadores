@@ -1,12 +1,13 @@
-import Layout from "../../Components/Layout"
 
-function CrearIndicadores() {
+import Layout from '../../Components/Layout'
+import FormCrearIndicador from '../../Components/FormCrearIndicador'
 
-    return (
-        <Layout>
-          Crear Indicadores
-        </Layout>
-    )
-  }
-  
-  export default CrearIndicadores
+const CrearIndicadores = () => {
+  return (
+    <Layout>
+      <FormCrearIndicador/>
+    </Layout>
+  )
+}
+
+export default CrearIndicadores

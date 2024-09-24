@@ -26,6 +26,9 @@ function Navbar() {
         // context.setUsuario("");
         // context.setAutenticado(false);
         // localStorage.removeItem('access_token');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        
         navegar('/', {
             replace: true
         });

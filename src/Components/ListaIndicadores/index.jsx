@@ -1,6 +1,7 @@
+
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { deleteUser, getAllUsers } from '../../api/users.api'
+import { deleteIndicador, getIndicadores } from '../../api/indicadores.api';
 // import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
@@ -9,39 +10,37 @@ import Button from '@mui/material/Button';
 import { AuthContext } from '../../Context/AuthContext';
 
 
-const ListaUsuarios = () => {
-    const [userList,setUserList]= useState([])
+const ListaIndicadores = () => {
+    const [indicatorList,setIndicatorList]= useState([])
     const { usuario } = useContext(AuthContext);
     const navegar = useNavigate();
     console.log(usuario)
 
     useEffect(() => {
-        async function loadUsers(){
-            const response= await getAllUsers(usuario.tokenAccess);
-            setUserList(response.data);
+        async function loadIndicadores(){
+            const response= await getIndicadores(usuario.tokenAccess);
+            setIndicatorList(response.data);
         }
-        loadUsers(usuario.tokenAccess);
+        loadIndicadores();
 
     }, [usuario.tokenAccess])
 
     const handleDelete = async (id) => {
-
       try {
-
-        const response = await deleteUser(id,usuario.tokenAccess);
-      //   const response = await axios.delete(`http://127.0.0.1:8000/sesion/api/users/${id}/`, {
-      //     headers: {
-      //       'Authorization': `Bearer ${usuario.tokenAccess}`,
-      //     },
-      //   }    
+        const response = await deleteIndicador(id,usuario.tokenAccess);
+        // const response = await axios.delete(`http://127.0.0.1:8000/sesion/api/indicadores/${id}/`, {
+        //   headers: {
+        //     'Authorization': `Bearer ${usuario.tokenAccess}`,
+        //   },
+        // } 
       // );
 
         if (response.status === 204) {
-          // Si la eliminación fue exitosa, actualiza la lista de usuarios
-          setUserList(userList.filter(user => user.id !== id));
-          console.log('Usuario eliminado exitosamente');
+          // Si la eliminación fue exitosa, actualiza la lista de indicadores
+          setIndicatorList(indicatorList.filter(indicador => indicador.id !== id));
+          console.log('Indicador eliminado exitosamente');
         } else {
-          console.error('Error al eliminar el usuario');
+          console.error('Error al eliminar el indicador');
         }
       } catch (error) {
         console.error('Error al conectar con la API', error);
@@ -50,16 +49,14 @@ const ListaUsuarios = () => {
 
         // Función para manejar la edición del usuario
         const handleEdit = (id) => {
-          navegar(`/editarUsuarios/${id}`); // Redirigir a la página de edición con el ID del usuario
+          navegar(`/editarIndicadores/${id}`); // Redirigir a la página de edición con el ID del indicador
         };
 
 
     const columns = [
         {field: 'id', headerName: 'ID', width: 90 },
-        {field: 'first_name', headerName: 'First name', width: 150, editable: true,},
-        {field: 'last_name', headerName: 'Last name', width: 150, editable: true,},
-        {field: 'role', headerName: 'role', width: 110, editable: true,},
-        {field: 'username',headerName: 'username',width: 160,editable: true},
+        {field: 'nombre', headerName: 'nombre', width: 90, editable: true},
+        {field: 'descripcion', headerName: 'descripcion', width: 150, editable: true,},
         {
           field: 'actions',
           headerName: 'Acciones',
@@ -90,7 +87,7 @@ const ListaUsuarios = () => {
       ];
 
 
-    const rows = userList.map((user) => ({ ...user, id: user.id }));
+    const rows = indicatorList.map((indicador) => ({ ...indicador, id: indicador.id }));
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
@@ -114,4 +111,4 @@ const ListaUsuarios = () => {
 
 }
 
-export default ListaUsuarios
+export default ListaIndicadores

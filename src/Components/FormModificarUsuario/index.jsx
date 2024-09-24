@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 
 
-const EditarUsuario = () => {
+const FormModificarUsuario = () => {
   const { id } = useParams();  // Obtener el ID de la URL
   const [user, setUser] = useState(null);
   const { usuario } = useContext(AuthContext);
@@ -113,7 +113,7 @@ const EditarUsuario = () => {
   );
 };
 
-export default EditarUsuario;
+export default FormModificarUsuario;
 
 
   

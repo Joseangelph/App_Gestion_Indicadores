@@ -36,7 +36,7 @@ function AsideMenuExpert(){
                     </li>
                     {/* <li className="py-2">
                         <NavLink
-                            to={'/crearIndicadores'}
+                            to={'/gestionarIndicadores'}
                             className={({ isActive}) =>
                             isActive ? activeStyle : undefined
                             }
