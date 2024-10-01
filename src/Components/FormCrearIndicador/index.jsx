@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
-import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl,  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 import { createIndicador } from '../../api/indicadores.api';
@@ -11,22 +11,9 @@ const FormCrearIndicador = () => {
     descripcion: '',
   });
   const { usuario } = useContext(AuthContext);
+  const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
 
   const navegar= useNavigate();
-
-//   const registerUser = async (userData) => {
-//         try {
-//             const response = await axios.post(`http://localhost:8000/sesion/registrar/`, userData);
-//             alert("Indicador creado correctamente")
-//             navegar("/gestionarIndicadores")
-//             return response.data;
-//         } 
-//         catch (error) {
-//             alert("Error al registrar el indicador")
-//             console.error('Error al registrar el indicador:', error);
-//             throw error;
-//         }
-//     }
 
   const handleChange = (e) => {
     setFormData({
@@ -39,18 +26,17 @@ const FormCrearIndicador = () => {
     e.preventDefault();
     try {
       const response = await createIndicador(formData,usuario.tokenAccess)
-      // const response = await axios.post('http://localhost:8000/gestion_indicadores/api/indicadores/', formData ,{
-      //   headers: {
-      //       Authorization: `Bearer ${usuario.tokenAccess}`,
-      //     },
-      // } );
-      navegar("/gestionarIndicadores")
-      console.log('Indicador registrado con éxito:', response);
+      // navegar("/gestionarIndicadores")
+      setOpenDialog(true); // Abre el diálogo de éxito
       return response.data;
-      // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito
     } catch (error) {
       console.error('Error en el registro:', error);
     }
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    navegar("/gestionarIndicadores"); // Redirige después de cerrar el diálogo
   };
 
   return (
@@ -104,6 +90,22 @@ const FormCrearIndicador = () => {
         </Button>
         </Box>
       </form>
+
+      {/* Diálogo de confirmación */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>{"Usuario Creado"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            El usuario ha sido creado exitosamente.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </Box>
 
 

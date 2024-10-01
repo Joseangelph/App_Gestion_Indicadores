@@ -17,7 +17,7 @@ function GestionarUsuarios() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar Indicador
+              Gestionar Indicadores
             </Typography>
             <div className="mt-5 mb-5">
               <Button onClick={()=>navegar('/crearIndicadores')} variant="contained">Crear Indicador</Button>

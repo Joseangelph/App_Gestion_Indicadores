@@ -7,6 +7,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import { AuthContext } from '../../Context/AuthContext';
 
 
@@ -14,7 +20,10 @@ const ListaIndicadores = () => {
     const [indicatorList,setIndicatorList]= useState([])
     const { usuario } = useContext(AuthContext);
     const navegar = useNavigate();
-    console.log(usuario)
+
+    const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+    const [selectedId, setSelectedId] = useState(null); // Estado para el ID del indicador a eliminar
+    // console.log(usuario)
 
     useEffect(() => {
         async function loadIndicadores(){
@@ -25,33 +34,37 @@ const ListaIndicadores = () => {
 
     }, [usuario.tokenAccess])
 
-    const handleDelete = async (id) => {
+    const handleDelete = async () => {
       try {
-        const response = await deleteIndicador(id,usuario.tokenAccess);
-        // const response = await axios.delete(`http://127.0.0.1:8000/sesion/api/indicadores/${id}/`, {
-        //   headers: {
-        //     'Authorization': `Bearer ${usuario.tokenAccess}`,
-        //   },
-        // } 
-      // );
-
+        const response = await deleteIndicador(selectedId,usuario.tokenAccess);
         if (response.status === 204) {
           // Si la eliminación fue exitosa, actualiza la lista de indicadores
-          setIndicatorList(indicatorList.filter(indicador => indicador.id !== id));
+          setIndicatorList(indicatorList.filter(indicador => indicador.id !== selectedId));
           console.log('Indicador eliminado exitosamente');
         } else {
           console.error('Error al eliminar el indicador');
         }
+        setOpenDialog(false); // Cierra el diálogo después de eliminar
       } catch (error) {
         console.error('Error al conectar con la API', error);
+        setOpenDialog(false); // Cierra el diálogo si hay error
       }
     };
 
-        // Función para manejar la edición del usuario
-        const handleEdit = (id) => {
-          navegar(`/editarIndicadores/${id}`); // Redirigir a la página de edición con el ID del indicador
-        };
+    const handleOpenDialog = (id) => {
+      setSelectedId(id); // Guarda el ID del indicador a eliminar
+      setOpenDialog(true); // Abre el diálogo
+    };
 
+    // Función para manejar la edición del usuario
+    const handleEdit = (id) => {
+      navegar(`/editarIndicadores/${id}`); // Redirigir a la página de edición con el ID del indicador
+    };
+
+    const handleCloseDialog = () => {
+      setOpenDialog(false); // Cierra el diálogo sin eliminar
+      setSelectedId(null); // Limpia el ID seleccionado
+    };
 
     const columns = [
         {field: 'id', headerName: 'ID', width: 90 },
@@ -77,7 +90,7 @@ const ListaIndicadores = () => {
                 color="error"
                 size="small"
                 startIcon={<DeleteIcon />}
-                onClick={() => handleDelete(params.row.id)}
+                onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 Eliminar
               </Button>
@@ -85,7 +98,6 @@ const ListaIndicadores = () => {
           ),
         },
       ];
-
 
     const rows = indicatorList.map((indicador) => ({ ...indicador, id: indicador.id }));
 
@@ -102,13 +114,31 @@ const ListaIndicadores = () => {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
       />
+
+      {/* Diálogo de confirmación */}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+      >
+        <DialogTitle>{"Confirmar eliminación"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Estás seguro de que deseas eliminar este indicador?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=>handleCloseDialog()} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={()=>handleDelete()} color="error" autoFocus>
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
   </Box>
 
     )
 
 }
-
 export default ListaIndicadores

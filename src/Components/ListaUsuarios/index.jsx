@@ -6,15 +6,21 @@ import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { AuthContext } from '../../Context/AuthContext';
-
 
 const ListaUsuarios = () => {
     const [userList,setUserList]= useState([])
     const { usuario } = useContext(AuthContext);
     const navegar = useNavigate();
-    console.log(usuario)
 
+    const [openDialog, setOpenDialog] = useState(false); // Estado para controlar si el diálogo está abierto o cerrado
+const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el ID del usuario seleccionado para eliminar
+    
     useEffect(() => {
         async function loadUsers(){
             const response= await getAllUsers(usuario.tokenAccess);
@@ -24,35 +30,38 @@ const ListaUsuarios = () => {
 
     }, [usuario.tokenAccess])
 
-    const handleDelete = async (id) => {
+    const handleDelete = async () => {
 
       try {
-
-        const response = await deleteUser(id,usuario.tokenAccess);
-      //   const response = await axios.delete(`http://127.0.0.1:8000/sesion/api/users/${id}/`, {
-      //     headers: {
-      //       'Authorization': `Bearer ${usuario.tokenAccess}`,
-      //     },
-      //   }    
-      // );
-
+        const response = await deleteUser(selectedId,usuario.tokenAccess);
         if (response.status === 204) {
           // Si la eliminación fue exitosa, actualiza la lista de usuarios
-          setUserList(userList.filter(user => user.id !== id));
+          setUserList(userList.filter(user => user.id !== selectedId));
           console.log('Usuario eliminado exitosamente');
         } else {
           console.error('Error al eliminar el usuario');
         }
+        setOpenDialog(false); // Cierra el diálogo después de eliminar
       } catch (error) {
         console.error('Error al conectar con la API', error);
+        setOpenDialog(false); // Cierra el diálogo si hay error
       }
     };
 
-        // Función para manejar la edición del usuario
-        const handleEdit = (id) => {
-          navegar(`/editarUsuarios/${id}`); // Redirigir a la página de edición con el ID del usuario
-        };
+    const handleOpenDialog = (id) => {
+      setSelectedId(id);  // Guarda el ID del usuario seleccionado
+      setOpenDialog(true); // Abre el diálogo de confirmación
+    };
 
+    const handleCloseDialog = () => {
+      setOpenDialog(false); // Cierra el diálogo sin eliminar
+      setSelectedId(null); // Limpia el ID seleccionado
+    };
+
+    // Función para manejar la edición del usuario
+    const handleEdit = (id) => {
+      navegar(`/editarUsuarios/${id}`); // Redirigir a la página de edición con el ID del usuario
+    };
 
     const columns = [
         {field: 'id', headerName: 'ID', width: 90 },
@@ -80,7 +89,7 @@ const ListaUsuarios = () => {
                 color="error"
                 size="small"
                 startIcon={<DeleteIcon />}
-                onClick={() => handleDelete(params.row.id)}
+                onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 Eliminar
               </Button>
@@ -88,7 +97,6 @@ const ListaUsuarios = () => {
           ),
         },
       ];
-
 
     const rows = userList.map((user) => ({ ...user, id: user.id }));
 
@@ -105,13 +113,29 @@ const ListaUsuarios = () => {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
       />
+
+      {/* Diálogo de confirmación */}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+      >
+        <DialogTitle>{"Confirmar eliminación"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Estás seguro de que deseas eliminar este usuario?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">
+                Cancelar
+              </Button>
+              <Button onClick={handleDelete} color="error" autoFocus>
+                Eliminar
+              </Button>
+        </DialogActions>
+      </Dialog>
   </Box>
-
     )
-
 }
-
 export default ListaUsuarios
