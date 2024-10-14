@@ -21,7 +21,7 @@ function Home() {
                   Bienvenido a <strong>SIGIMI</strong>
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  Gestiona tus indicadores y mide el impacto de tus plataformas tecnológicas de manera eficiente.
+                  Gestiona tus indicadores para medir el impacto de tus plataformas tecnológicas de manera eficiente.
                 </Typography>
                 <Box mt={4}>
                 </Box>

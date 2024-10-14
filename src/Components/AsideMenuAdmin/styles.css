@@ -1,7 +1,15 @@
-.aside-menu, .aside-menu-container{
+.aside-menu-container{
     top: 77px;
     height: calc(100vh - 77px);
+    
+    
 }
+
+.aside-menu {
+    scrollbar-width: none; /* Para Firefox */
+    -ms-overflow-style: none; /* Para Internet Explorer y Edge */
+}
+
 
 .operation {
     padding-top: 10px;

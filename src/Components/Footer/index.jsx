@@ -3,7 +3,7 @@ import './styles.css';
 
 const Footer = () => {
   return (
-    <footer className="footer relative">
+      <footer className="footer bg-sky-600 relative h-30">
       <div className="footer-content">
         <p>&copy; 2024 SIGIMI. Todos los derechos reservados.</p>
         <div className="footer-links">
@@ -13,6 +13,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    
   );
 };
 

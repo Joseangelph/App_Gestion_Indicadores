@@ -10,15 +10,14 @@ function AsideMenuAdmin(){
     const activeStyle = 'underline underline-offset-4'
 
     return (
-        <div className="aside-menu-container relative w-1/5">
-            <aside className="aside-menu border rounded-sm fixed bg-sky-600 border-black w-1/5">
+        <div className="aside-menu-container relative w-1/5 mb-32">
+            <aside className="aside-menu border rounded-sm fixed bg-sky-600 border-black w-1/5 overflow-y-auto h-screen">
 
-                <ul className="flex flex-col items-start py-5 px-8 text-lg">
+                <ul className="flex flex-col items-start py-5 px-5 text-lg">
                     
                     <li className="font-semibold text-xl py-2 mb-3">
                         Operaciones
                     </li>
-
                     <li className="py-2">
                         <NavLink 
                             to='/home'
@@ -28,21 +27,7 @@ function AsideMenuAdmin(){
                         >
                             <div className="flex">
                                 <FaHome className="icon"/>
-                                Home
-                            </div>
-                            
-                        </NavLink>
-                    </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarIndicadores'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Crear Indicadores
+                                Inicio
                             </div>
                             
                         </NavLink>
@@ -59,6 +44,101 @@ function AsideMenuAdmin(){
                                 Gestionar Usuarios
                             </div>
                             
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarIndicadores'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar Indicadores
+                            </div>
+                            
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarCategorias'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar categorías de análisis
+                            </div>
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarDestinos'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar destinos de Impactos
+                            </div>
+                            
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarComponentes'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar componentes
+                            </div>
+                            
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarDimensiones'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar dimensiones
+                            </div>
+                            
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarSubdimensiones'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar subdimensiones
+                            </div>
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to='/gestionarPlataformas'
+                            className={({ isActive}) =>
+                            isActive ? activeStyle : undefined
+                            }
+                        >
+                            <div className="flex">
+                                <IoIosCreate className="icon" />
+                                Gestionar plataformas tecnológicas
+                            </div>
                         </NavLink>
                     </li>
                 </ul>

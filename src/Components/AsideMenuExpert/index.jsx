@@ -29,7 +29,7 @@ function AsideMenuExpert(){
                         >
                             <div className="flex">
                                 <FaHome className="icon"/>
-                                Home
+                                Inicio
                             </div>
                             
                         </NavLink>

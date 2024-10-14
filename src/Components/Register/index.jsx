@@ -102,7 +102,7 @@ const Register = ({setTieneCuenta}) => {
           required 
           />
       </div>
-      <div className="mb-2">
+      {/* <div className="mb-2">
         <label className="block text-gray-700 text-lg font-semibold mb-2" htmlFor="role">
           Role
         </label>
@@ -117,7 +117,7 @@ const Register = ({setTieneCuenta}) => {
           <option value="experto">experto</option>
           <option value="administrador">administrador</option>
         </select>
-      </div>
+      </div> */}
       <div className="flex items-center justify-between mt-2">
         <button 
           // onClick={() => setTieneCuenta(true)}

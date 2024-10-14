@@ -11,21 +11,15 @@ import { types } from '../../types/types';
 
 function Navbar() {
 
-    // const activeStyle = 'underline underline-offset-4'
-    // const  [profilePicture, setProfilePicture]= useState(DefaultProfilePic)
     const profilePicture = DefaultProfilePic
     const {usuario} = useContext(AuthContext)
 
     const navegar = useNavigate();
     const { dispatch } = useContext(AuthContext);
-    // const { usuario } = useContext(AuthContext);
     
 
     const logout = () => {
-        // NavigateNextSharp("/")
-        // context.setUsuario("");
-        // context.setAutenticado(false);
-        // localStorage.removeItem('access_token');
+     
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         
@@ -35,24 +29,6 @@ function Navbar() {
         dispatch({ type: types.logout })
       
     };
-
-
-    
-    
-
-    // const handleCerrarSesion = async () => {
-    //     try {
-    //         const resp = await cerrarSesion(usuario.tokenAccess);
-    //         dispatch({ type: types.logout })
-    //         navegar('/', {
-    //             replace: true
-    //         });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-
-    // }
-
 
     return (
         <nav className="flex justify-between border border-black bg-slate-200 items-center fixed top-0 z-10 w-full">

@@ -5,9 +5,9 @@ import { AuthContext } from '../../Context/AuthContext';
 
 import { decodeToken, isExpired } from "react-jwt";
 import { types } from '../../types/types';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-const FormAutenticar = ({setTieneCuenta}) => {
+const FormAutenticar = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   // const context = useContext(AuthContext)
@@ -103,7 +103,7 @@ const FormAutenticar = ({setTieneCuenta}) => {
   
   return (
     <div className="form-container z-10 shadow-2xl flex  flex-col items-center justify-center w-1/3 h-96 bg-sky-200 rounded-lg">
-      <p className=' Titulo pb-5 text-2xl '> Bienvenido a SIGIMI </p>
+      {/* <p className=' Titulo pb-5 text-2xl '> Bienvenido a SIGIMI </p> */}
       <form onSubmit={handleSubmit} className="w-full max-w-xs rounded-sm bg-sky-200 p-3">
         <div className="mb-4">
           <label className="block text-gray-700 text-lg font-semibold  mb-2" htmlFor="username">
@@ -126,35 +126,19 @@ const FormAutenticar = ({setTieneCuenta}) => {
         </div>
       </form>
 
-            <button
+            {/* <button
                 className="btnCuenta mt-3"
                 onClick={() => setTieneCuenta(false)}
             >
                 ¿No tienes cuenta?
-            </button>
+            </button> */}
     </div>
   );
 
 };
 
-FormAutenticar.propTypes = {
-  setTieneCuenta: PropTypes.func.isRequired
-}
+// FormAutenticar.propTypes = {
+//   setTieneCuenta: PropTypes.func.isRequired
+// }
 
 export default FormAutenticar;
-
-
-    // const registerUser = async () => {
-    //   try {
-    //     const response = await axios.post('http://localhost:8000/sesion/register/', {
-    //       username: 'jose',
-    //       password: '12345',
-    //       first_name: 'jose',
-    //       last_name: 'padron',
-    //       role: 'administrador' // o 'admin'
-    //     });
-    //     console.log('Usuario registrado con éxito:', response.data);
-    //   } catch (error) {
-    //     console.error('Error al registrar el usuario:', error);
-    //   }
-    // };
