@@ -24,6 +24,9 @@ const FormCrearDimension = () => {
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
   const [herencia, setHerencia] = useState('destino'); // Estado para controlar qué select está habilitado
+  const componentesHabilitados = componentes.filter(componente => componente.habilitado);
+  const destinosHabilitados = destinos.filter(destino => destino.habilitado);
+
 
   const navegar= useNavigate();
 
@@ -153,7 +156,7 @@ return (
               value={formData.destino_impacto}
               onChange={handleChange}
             >
-              {destinos.map((destino) => (
+              {destinosHabilitados.map((destino) => (
                 <MenuItem key={destino.id} value={destino.id}>
                   {destino.nombre}
                 </MenuItem>
@@ -182,7 +185,7 @@ return (
               value={formData.componente}
               onChange={handleChange}
             >
-              {componentes.map((componente) => (
+              {componentesHabilitados.map((componente) => (
                 <MenuItem key={componente.id} value={componente.id}>
                   {componente.nombre}
                 </MenuItem>

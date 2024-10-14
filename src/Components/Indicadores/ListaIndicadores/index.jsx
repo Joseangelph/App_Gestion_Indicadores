@@ -12,12 +12,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Switch from '@mui/material/Switch';
 
 import { AuthContext } from '../../../Context/AuthContext';
+import { toggleHabilitado} from "../../../api/toggleHabilitado.api";
 
 
 const ListaIndicadores = () => {
-    const [indicatorList,setIndicatorList]= useState([])
+    const [indicadorList,setIndicadorList]= useState([])
     const { usuario } = useContext(AuthContext);
     const navegar = useNavigate();
 
@@ -28,18 +30,31 @@ const ListaIndicadores = () => {
     useEffect(() => {
         async function loadIndicadores(){
             const response= await getIndicadores(usuario.tokenAccess);
-            setIndicatorList(response.data);
+            setIndicadorList(response.data);
         }
         loadIndicadores();
 
     }, [usuario.tokenAccess])
+
+
+    const handleToggleHabilitado = async (id) => {
+      try {
+          const response = await toggleHabilitado('indicador', id, usuario.tokenAccess);
+          const updatedIndicadores = indicadorList.map((indicador) =>
+              indicador.id === id ? { ...indicador, habilitado: response.data.habilitado } : indicador
+          );
+          setIndicadorList(updatedIndicadores);
+      } catch (error) {
+          console.error('Error al alternar el estado:', error);
+      }
+    };
 
     const handleDelete = async () => {
       try {
         const response = await deleteIndicador(selectedId,usuario.tokenAccess);
         if (response.status === 204) {
           // Si la eliminación fue exitosa, actualiza la lista de indicadores
-          setIndicatorList(indicatorList.filter(indicador => indicador.id !== selectedId));
+          setIndicadorList(indicadorList.filter(indicador => indicador.id !== selectedId));
           console.log('Indicador eliminado exitosamente');
         } else {
           console.error('Error al eliminar el indicador');
@@ -67,6 +82,13 @@ const ListaIndicadores = () => {
     };
 
     const columns = [
+        {field: 'habilitado', headerName: 'Habilitado', width: 150, renderCell: (params) => (
+          <Switch
+              checked={params.row.habilitado}
+              onChange={() => handleToggleHabilitado(params.row.id)}
+              color="primary"
+          />
+        )},
         {field: 'nombre', headerName: 'Nombre', width: 200, editable: true},
         {field: 'tipo', headerName: 'Tipo', width: 120, editable: true},
         {field: 'subdimension_nombre', headerName: 'Subdimensión', width: 200, editable: true},
@@ -97,7 +119,7 @@ const ListaIndicadores = () => {
         },
       ];
 
-    const rows = indicatorList.map((indicador) => ({ ...indicador, id: indicador.id }));
+    const rows = indicadorList.map((indicador) => ({ ...indicador, id: indicador.id }));
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>

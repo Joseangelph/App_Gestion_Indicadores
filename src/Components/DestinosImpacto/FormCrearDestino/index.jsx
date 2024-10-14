@@ -15,6 +15,8 @@ const FormCrearDestino = () => {
   const [categorias, setCategorias] = useState([]); 
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+  const categoriasHabilitadas = categorias.filter(categoria => categoria.habilitado);
+
 
   const navegar= useNavigate();
 
@@ -97,7 +99,7 @@ const FormCrearDestino = () => {
             value={formData.categoria_analisis}
             onChange={handleChange}
           >
-            {categorias.map((categoria) => (
+            {categoriasHabilitadas.map((categoria) => (
               <MenuItem key={categoria.id} value={categoria.id}>
                 {categoria.nombre}
               </MenuItem>

@@ -11,6 +11,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Switch from '@mui/material/Switch';
+import { toggleHabilitado} from "../../../api/toggleHabilitado.api"
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deleteDestino, getDestinos } from '../../../api/destinos.api';
@@ -33,6 +35,18 @@ const ListaDestinos = () => {
         loadDestinos();
 
     }, [usuario.tokenAccess])
+
+    const handleToggleHabilitado = async (id) => {
+      try {
+          const response = await toggleHabilitado('destino', id, usuario.tokenAccess);
+          const updatedDestinos = destinoList.map((destino) =>
+              destino.id === id ? { ...destino, habilitado: response.data.habilitado } : destino
+          );
+          setDestinoList(updatedDestinos);
+      } catch (error) {
+          console.error('Error al alternar el estado:', error);
+      }
+  };
 
     const handleDelete = async () => {
       try {
@@ -67,6 +81,13 @@ const ListaDestinos = () => {
     };
 
     const columns = [
+        {field: 'habilitado', headerName: 'Habilitado', width: 150, renderCell: (params) => (
+          <Switch
+              checked={params.row.habilitado}
+              onChange={() => handleToggleHabilitado(params.row.id)}
+              color="primary"
+          />
+        )},
         {field: 'nombre', headerName: 'nombre', width: 200, editable: true},
         {field: 'concepto', headerName: 'concepto', width: 200, editable: true},
         // {field: 'categoria_analisis', headerName: 'categoria', width: 150, editable: true,},

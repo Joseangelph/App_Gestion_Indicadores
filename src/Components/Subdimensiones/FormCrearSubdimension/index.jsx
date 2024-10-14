@@ -15,6 +15,7 @@ const FormCrearSubdimension = () => {
   const [dimensiones, setDimensiones] = useState([]); 
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+  const dimensionesHabilitadas = dimensiones.filter(dimension => dimension.habilitado);
 
   const navegar= useNavigate();
 
@@ -97,7 +98,7 @@ const FormCrearSubdimension = () => {
             value={formData.dimension}
             onChange={handleChange}
           >
-            {dimensiones.map((dimension) => (
+            {dimensionesHabilitadas.map((dimension) => (
               <MenuItem key={dimension.id} value={dimension.id}>
                 {dimension.nombre}
               </MenuItem>

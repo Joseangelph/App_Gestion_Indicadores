@@ -24,6 +24,8 @@ const FormCrearIndicador = () => {
   const [herencia, setHerencia] = useState('dimension'); // Estado para controlar qué select está habilitado
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+  const dimensionesHabilitadas = dimensiones.filter(dimension => dimension.habilitado);
+  const subdimensionesHabilitadas = subdimensiones.filter(subdimension => subdimension.habilitado);
   const navegar= useNavigate();
 
   const handleChange = (e) => {
@@ -158,7 +160,7 @@ const FormCrearIndicador = () => {
               value={formData.dimension}
               onChange={handleChange}
             >
-              {dimensiones.map((dimension) => (
+              {dimensionesHabilitadas.map((dimension) => (
                 <MenuItem key={dimension.id} value={dimension.id}>
                   {dimension.nombre}
                 </MenuItem>
@@ -187,7 +189,7 @@ const FormCrearIndicador = () => {
               value={formData.subdimension}
               onChange={handleChange}
             >
-              {subdimensiones.map((subdimension) => (
+              {subdimensionesHabilitadas.map((subdimension) => (
                 <MenuItem key={subdimension.id} value={subdimension.id}>
                   {subdimension.nombre}
                 </MenuItem>

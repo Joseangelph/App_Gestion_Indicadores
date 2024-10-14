@@ -1,7 +1,6 @@
 
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-// import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,9 +10,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Switch from '@mui/material/Switch';
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deleteComponente, getComponentes } from '../../../api/componentes.api';
+import { toggleHabilitado} from "../../../api/toggleHabilitado.api";
 
 
 const ListaComponentes = () => {
@@ -31,8 +32,21 @@ const ListaComponentes = () => {
             setComponenteList(response.data);
         }
         loadComponentes();
-
     }, [usuario.tokenAccess])
+
+
+    const handleToggleHabilitado = async (id) => {
+      try {
+          const response = await toggleHabilitado('componente', id, usuario.tokenAccess);
+          const updatedComponentes = componenteList.map((componente) =>
+              componente.id === id ? { ...componente, habilitado: response.data.habilitado } : componente
+          );
+          setComponenteList(updatedComponentes);
+      } catch (error) {
+          console.error('Error al alternar el estado:', error);
+      }
+    };
+
 
     const handleDelete = async () => {
       try {
@@ -67,10 +81,15 @@ const ListaComponentes = () => {
     };
 
     const columns = [
+        {field: 'habilitado', headerName: 'Habilitado', width: 150, renderCell: (params) => (
+          <Switch
+              checked={params.row.habilitado}
+              onChange={() => handleToggleHabilitado(params.row.id)}
+              color="primary"
+          />
+        )},
         {field: 'nombre', headerName: 'nombre', width: 200, editable: true},
-        {field: 'concepto', headerName: 'concepto', width: 200, editable: true},
-        // {field: 'destino_impacto', headerName: 'destino', width: 150, editable: true,},
-        { field: 'destino_impacto_nombre', headerName: 'Destino de impacto', width: 150, editable: false }, // Cambiado aquí
+        {field: 'destino_impacto_nombre', headerName: 'Destino de impacto', width: 150, editable: false },
         {
           field: 'actions',
           headerName: 'Acciones',

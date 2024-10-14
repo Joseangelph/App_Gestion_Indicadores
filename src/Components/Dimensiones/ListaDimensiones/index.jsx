@@ -11,9 +11,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Switch from '@mui/material/Switch';
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deleteDimension, getDimensiones } from '../../../api/dimensiones.api';
+import { toggleHabilitado} from "../../../api/toggleHabilitado.api";
 
 
 const ListaDimensiones = () => {
@@ -33,6 +35,19 @@ const ListaDimensiones = () => {
         loadDimensiones();
 
     }, [usuario.tokenAccess])
+
+
+    const handleToggleHabilitado = async (id) => {
+      try {
+          const response = await toggleHabilitado('dimension', id, usuario.tokenAccess);
+          const updatedDimensiones = dimensionList.map((dimension) =>
+              dimension.id === id ? { ...dimension, habilitado: response.data.habilitado } : dimension
+          );
+          setDimensionList(updatedDimensiones);
+      } catch (error) {
+          console.error('Error al alternar el estado:', error);
+      }
+  };
 
     const handleDelete = async () => {
       try {
@@ -67,8 +82,14 @@ const ListaDimensiones = () => {
     };
 
     const columns = [
-        {field: 'nombre', headerName: 'nombre', width: 200, editable: true},
-        {field: 'concepto', headerName: 'concepto', width: 200, editable: true},
+        {field: 'habilitado', headerName: 'Habilitado', width: 90, renderCell: (params) => (
+          <Switch
+              checked={params.row.habilitado}
+              onChange={() => handleToggleHabilitado(params.row.id)}
+              color="primary"
+          />
+        )},
+        {field: 'nombre', headerName: 'Nombre', width: 200, editable: true},
         { field: 'destino_impacto_nombre', headerName: 'Destino de impacto', width: 200, editable: false },
         { field: 'componente_nombre', headerName: 'Componente', width: 200, editable: false },
         {

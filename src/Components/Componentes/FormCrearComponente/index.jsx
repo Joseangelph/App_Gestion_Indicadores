@@ -15,6 +15,7 @@ const FormCrearComponente = () => {
   const [destinos, setDestinos] = useState([]); 
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+  const destinosHabilitados = destinos.filter(destino => destino.habilitado);
 
   const navegar= useNavigate();
 
@@ -97,7 +98,7 @@ const FormCrearComponente = () => {
             value={formData.destino_impacto}
             onChange={handleChange}
           >
-            {destinos.map((destino) => (
+            {destinosHabilitados.map((destino) => (
               <MenuItem key={destino.id} value={destino.id}>
                 {destino.nombre}
               </MenuItem>
