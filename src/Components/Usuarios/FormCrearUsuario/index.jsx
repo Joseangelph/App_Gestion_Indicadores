@@ -65,7 +65,7 @@ const FormCrearUsuario = () => {
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
         <TextField
-          label="Username"
+          label="Nombre de usuario"
           name="username"
           value={formData.username}
           onChange={handleChange}
@@ -75,7 +75,7 @@ const FormCrearUsuario = () => {
         />
         
         <TextField
-          label="Password"
+          label="Contraseña"
           name="password"
           type="password"
           value={formData.password}
@@ -88,7 +88,7 @@ const FormCrearUsuario = () => {
         />
         
         <TextField
-          label="First Name"
+          label="Nombre"
           name="first_name"
           value={formData.first_name}
           onChange={handleChange}
@@ -98,7 +98,7 @@ const FormCrearUsuario = () => {
         />
         
         <TextField
-          label="Last Name"
+          label="Apellidos"
           name="last_name"
           value={formData.last_name}
           onChange={handleChange}
@@ -108,14 +108,14 @@ const FormCrearUsuario = () => {
         />
         
         <FormControl fullWidth margin="normal" variant="outlined">
-          <InputLabel id="role-label">Role</InputLabel>
+          <InputLabel id="role-label">Rol</InputLabel>
           <Select
             labelId="role-label"
             id="role"
             name="role"
             value={formData.role}
             onChange={handleChange}
-            label="Role"
+            label="Rol"
           >
             <MenuItem value="">
               <em>Selecciona el Rol</em>

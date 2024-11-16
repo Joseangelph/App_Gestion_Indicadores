@@ -40,7 +40,7 @@ const FormCrearCategoria = () => {
 
   return (
     
-<Box className="form-container flex flex-col items-center justify-center mt-10 w-1/2 rounded-lg">
+<Box className="form-container flex flex-col items-center justify-center mt-10 rounded-lg">
       <Typography
         variant="h4"
         className="text-2xl font-bold text-blue-600 pb-3"

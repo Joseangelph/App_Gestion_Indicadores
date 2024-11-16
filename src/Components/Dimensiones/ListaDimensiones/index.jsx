@@ -12,6 +12,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
+import { BiSolidDetail } from "react-icons/bi";
+import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deleteDimension, getDimensiones } from '../../../api/dimensiones.api';
@@ -76,6 +78,11 @@ const ListaDimensiones = () => {
       navegar(`/editarDimensiones/${id}`); // Redirigir a la página de edición con el ID de la dimension seleccionada
     };
 
+    const handleShow = (id) => {
+      navegar(`/mostrarDimensiones/${id}`); // Redirigir a la página de mostrar con el ID de la dimension
+    };
+
+
     const handleCloseDialog = () => {
       setOpenDialog(false); // Cierra el diálogo sin eliminar
       setSelectedId(null); // Limpia el ID seleccionado
@@ -89,32 +96,40 @@ const ListaDimensiones = () => {
               color="primary"
           />
         )},
-        {field: 'nombre', headerName: 'Nombre', width: 200, editable: true},
-        { field: 'destino_impacto_nombre', headerName: 'Destino de impacto', width: 200, editable: false },
-        { field: 'componente_nombre', headerName: 'Componente', width: 200, editable: false },
+        {field: 'nombre', headerName: 'Nombre', width: 250, editable: true},
+        { field: 'destino_impacto_nombre', headerName: 'Destino de impacto', width: 250, editable: false },
+        { field: 'componente_nombre', headerName: 'Componente', width: 250, editable: false },
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 200,
+          width: 130,
           renderCell: (params) => (
             <Box>
               <Button
                 variant="contained"
                 color="primary"
-                size="small"
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
+                onClick={() => handleShow(params.row.id)} // Abre el diálogo de confirmación
+                style={{ marginRight: 10 }}
+              >
+                <BiSolidDetail />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleEdit(params.row.id)}
                 style={{ marginRight: 10 }}
               >
-                Editar
+                <FaPenToSquare />
               </Button>
               <Button
                 variant="contained"
                 color="error"
-                size="small"
-                startIcon={<DeleteIcon />}
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
-                Eliminar
+                <DeleteIcon />
               </Button>
             </Box>
           ),

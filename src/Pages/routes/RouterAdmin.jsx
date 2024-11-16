@@ -28,6 +28,18 @@ import EditarSubdimensiones from '../SubdimensionesPages/EditarSubdimensiones';
 import GestionarPlataformas from '../PlataformasPages/GestionarPlataformas';
 import CrearPlataformas from '../PlataformasPages/CrearPlataformas';
 import EditarPlataformas from '../PlataformasPages/EditarPlataformas';
+import MostrarCategorias from '../CategoriasPages/MostrarCategorias';
+import MostrarComponentes from '../ComponentesPages/MostrarComponentes';
+import MostrarDestinos from '../DestinosPages/MostrarDestinos';
+import MostrarDimensiones from '../DimensionesPages/MostrarDimensiones';
+import MostrarSubdimensiones from '../SubdimensionesPages/MostrarSubdimensiones';
+import MostrarIndicadores from '../IndicadoresPages/MostrarIndicadores';
+import MostrarPlataformas from '../PlataformasPages/MostrarPlataformas';
+import CrearEvaluacionesPlataformas from '../EvaluacionesPlataformasPages/CrearEvaluacionesPlataformas';
+import GestionarEvaluacionesPlataformas from '../EvaluacionesPlataformasPages/GestionarEvaluacionesPlataformas';
+import GestionarSeleccionesIndicadores from '../SeleccionesIndicadoresPages';
+import GestionarEvaluacionesIndicadores from '../EvaluacionesIndicadoresPages';
+import MostrarEvaluacionesPlataformas from '../EvaluacionesPlataformasPages/MostrarEvaluacionesPlataformas';
 
 
 const RouterAdmin = () => {
@@ -43,35 +55,49 @@ const RouterAdmin = () => {
                 <Route path="/gestionarIndicadores" element={<GestionarIndicadores/>}/>
                 <Route path="/crearIndicadores" element={<CrearIndicadores/>}/>
                 <Route path="/editarIndicadores/:id" element={<EditarIndicadores/>}/>
+                <Route path="/mostrarIndicadores/:id" element={<MostrarIndicadores/>}/>
 
                 <Route path="/gestionarCategorias" element={<GestionarCategorias/>}/>
                 <Route path="/crearCategorias" element={<CrearCategorias/>}/>
                 <Route path="/editarCategorias/:id" element={<EditarCategorias/>}/>
+                <Route path="/mostrarCategorias/:id" element={<MostrarCategorias/>}/>
 
                 <Route path="/gestionarDestinos" element={<GestionarDestinos/>} />
                 <Route path="/crearDestinos" element={<CrearDestinos/>}/>
                 <Route path="/editarDestinos/:id" element={<EditarDestinos/>} />
+                <Route path="/mostrarDestinos/:id" element={<MostrarDestinos/>}/>
 
                 <Route path="/gestionarComponentes" element={<GestionarComponentes/>} />
                 <Route path="/crearComponentes" element={<CrearComponentes/>}/>
                 <Route path="/editarComponentes/:id" element={<EditarComponentes/>} />
+                <Route path="/mostrarComponentes/:id" element={<MostrarComponentes/>}/>
 
                 <Route path="/gestionarDimensiones" element={<GestionarDimensiones/>} />
                 <Route path="/crearDimensiones" element={<CrearDimensiones/>}/>
                 <Route path="/editarDimensiones/:id" element={<EditarDimensiones/>} />
+                <Route path="/mostrarDimensiones/:id" element={<MostrarDimensiones/>}/>
 
                 <Route path="/gestionarSubdimensiones" element={<GestionarSubdimensiones/>} />
                 <Route path="/crearSubdimensiones" element={<CrearSubdimensiones/>}/>
                 <Route path="/editarSubdimensiones/:id" element={<EditarSubdimensiones/>} />
+                <Route path="/mostrarSubdimensiones/:id" element={<MostrarSubdimensiones/>}/>
 
                 <Route path="/gestionarPlataformas" element={<GestionarPlataformas/>}/>
                 <Route path="/crearPlataformas" element={<CrearPlataformas/>}/>
                 <Route path="/editarPlataformas/:id" element={<EditarPlataformas/>}/>
+                <Route path="/mostrarPlataformas/:id" element={<MostrarPlataformas/>}/>
 
                 <Route path="/gestionarUsuarios" element={<GestionarUsuarios/>} />
                 <Route path="/crearUsuarios" element={<CrearUsuarios/>}/>
                 <Route path="/editarUsuarios/:id" element={<EditarUsuarios/>} />
 
+                <Route path="/gestionarEvaluacionesPlataformas" element={<GestionarEvaluacionesPlataformas/>} />
+                <Route path="/crearEvaluacionesPlataformas" element={<CrearEvaluacionesPlataformas/>}/>
+                <Route path="/mostrarEvaluacionesPlataformas/:id" element={<MostrarEvaluacionesPlataformas/>}/>
+
+                <Route path="/seleccionarIndicadores/:id" element={<GestionarSeleccionesIndicadores/>}/>
+
+                <Route path="/evaluarIndicadores/:id" element={<GestionarEvaluacionesIndicadores/>}/>
                 
             </Routes>
               

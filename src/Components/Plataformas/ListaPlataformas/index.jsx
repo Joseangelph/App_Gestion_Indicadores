@@ -10,6 +10,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { BiSolidDetail } from "react-icons/bi";
+import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deletePlataforma, getPlataformas } from '../../../api/plataformas.api';
@@ -60,39 +62,51 @@ const ListaPlataforma = () => {
       navegar(`/editarPlataformas/${id}`); // Redirigir a la página de edición con el ID de la Plataforma
     };
 
+    const handleShow = (id) => {
+      navegar(`/mostrarPlataformas/${id}`); // Redirigir a la página de mostrar con el ID de la plataforma
+    };
+
     const handleCloseDialog = () => {
       setOpenDialog(false); // Cierra el diálogo sin eliminar
       setSelectedId(null); // Limpia el ID seleccionado
     };
 
     const columns = [
-        {field: 'nombre', headerName: 'nombre', width: 200, editable: true},
+        {field: 'nombre', headerName: 'Nombre', width: 200, editable: true},
         {field: 'proyecto', headerName: 'proyecto', width: 200, editable: true,},
         {field: 'url', headerName: 'url', width: 200, editable: true,},
         {field: 'alcance', headerName: 'alcance', width: 200, editable: true,},
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 200,
+          width: 130,
           renderCell: (params) => (
             <Box>
               <Button
                 variant="contained"
                 color="primary"
-                size="small"
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
+                onClick={() => handleShow(params.row.id)} // Abre el diálogo de confirmación
+                style={{ marginRight: 10 }}
+              >
+                <BiSolidDetail />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleEdit(params.row.id)}
                 style={{ marginRight: 10 }}
               >
-                Editar
+                <FaPenToSquare />
               </Button>
               <Button
                 variant="contained"
                 color="error"
-                size="small"
-                startIcon={<DeleteIcon />}
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
-                Eliminar
+                <DeleteIcon />
               </Button>
             </Box>
           ),

@@ -23,3 +23,12 @@ export const createIndicador = (data, token) => axios.post('http://localhost:800
       Authorization: `Bearer ${token}`,
     },
   });
+
+
+  export const seleccionarIndicadores = async (evaluacionId, indicadores, token) => {
+    return await axios.post(`http://localhost:8000/gestion_indicadores/api/evaluacionPlataforma/${evaluacionId}/seleccionar_indicadores/`, 
+    { indicadores },
+    {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+};

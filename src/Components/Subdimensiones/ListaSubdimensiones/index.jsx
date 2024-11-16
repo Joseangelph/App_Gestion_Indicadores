@@ -12,6 +12,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
+import { BiSolidDetail } from "react-icons/bi";
+import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deleteSubdimension, getSubdimensiones } from '../../../api/subdimensiones.api';
@@ -76,46 +78,56 @@ const ListaSubdimensiones = () => {
       navegar(`/editarSubdimensiones/${id}`); // Redirigir a la página de edición con el ID de la Subdimension seleccionada
     };
 
+    const handleShow = (id) => {
+      navegar(`/mostrarSubdimensiones/${id}`); // Redirigir a la página de mostrar con el ID de la subdimension seleccionada
+    };
+
     const handleCloseDialog = () => {
       setOpenDialog(false); // Cierra el diálogo sin eliminar
       setSelectedId(null); // Limpia el ID seleccionado
     };
 
     const columns = [
-        {field: 'habilitado', headerName: 'Habilitado', width: 150, renderCell: (params) => (
+        {field: 'habilitado', headerName: 'Habilitado', width: 100, renderCell: (params) => (
           <Switch
               checked={params.row.habilitado}
               onChange={() => handleToggleHabilitado(params.row.id)}
               color="primary"
           />
         )},
-        {field: 'nombre', headerName: 'nombre', width: 200, editable: true},
-        {field: 'concepto', headerName: 'concepto', width: 200, editable: true},
-        // {field: 'dimension', headerName: 'dimension', width: 150, editable: true,},
-        { field: 'dimension_nombre', headerName: 'Dimension', width: 200, editable: false },
+        {field: 'nombre', headerName: 'Nombre', width: 350, editable: true},
+        { field: 'dimension_nombre', headerName: 'Dimension', width: 350, editable: false },
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 200,
+          width: 130,
           renderCell: (params) => (
             <Box>
               <Button
                 variant="contained"
                 color="primary"
-                size="small"
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
+                onClick={() => handleShow(params.row.id)} // Abre el diálogo de confirmación
+                style={{ marginRight: 10 }}
+              >
+                <BiSolidDetail />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleEdit(params.row.id)}
                 style={{ marginRight: 10 }}
               >
-                Editar
+                <FaPenToSquare />
               </Button>
               <Button
                 variant="contained"
                 color="error"
-                size="small"
-                startIcon={<DeleteIcon />}
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
-                Eliminar
+                <DeleteIcon />
               </Button>
             </Box>
           ),

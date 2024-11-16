@@ -11,6 +11,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { FaPenToSquare } from "react-icons/fa6";
 import { AuthContext } from '../../../Context/AuthContext';
 
 const ListaUsuarios = () => {
@@ -64,15 +65,15 @@ const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el
     };
 
     const columns = [
-        {field: 'id', headerName: 'ID', width: 90 },
-        {field: 'first_name', headerName: 'First name', width: 150, editable: true,},
-        {field: 'last_name', headerName: 'Last name', width: 150, editable: true,},
-        {field: 'role', headerName: 'role', width: 110, editable: true,},
-        {field: 'username',headerName: 'username',width: 160,editable: true},
+        // {field: 'id', headerName: 'ID', width: 90 },
+        {field: 'first_name', headerName: 'Nombre', width: 220, editable: true,},
+        {field: 'last_name', headerName: 'Apellidos', width: 220, editable: true,},
+        {field: 'role', headerName: 'Rol', width: 170, editable: true,},
+        {field: 'username',headerName: 'Nombre de usuario', width: 220,editable: true},
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 200,
+          width: 100,
           renderCell: (params) => (
             <Box>
               <Button
@@ -80,18 +81,19 @@ const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el
                 color="primary"
                 size="small"
                 onClick={() => handleEdit(params.row.id)}
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 style={{ marginRight: 10 }}
               >
-                Editar
+                <FaPenToSquare />
               </Button>
               <Button
                 variant="contained"
                 color="error"
                 size="small"
-                startIcon={<DeleteIcon />}
+                sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
-                Eliminar
+                <DeleteIcon />
               </Button>
             </Box>
           ),

@@ -1,22 +1,12 @@
-.aside-menu-container{
-    top: 77px;
-    height: calc(100vh - 77px);
-    
-    
+.aside-menu-container {
+    /* background-color: #0284c7; */
+    color: #ffffff;
 }
 
-.aside-menu {
-    scrollbar-width: none; /* Para Firefox */
-    -ms-overflow-style: none; /* Para Internet Explorer y Edge */
+.aside-menu-container a {
+    transition: background-color 0.2s ease-in-out;
 }
 
-
-.operation {
-    padding-top: 10px;
-}
-
-
-.icon {
-    margin-top: 3px;
-    margin-right: 2px;
+.aside-menu-container a:hover {
+    background-color: #516607;
 }

@@ -1,152 +1,91 @@
-import { NavLink } from "react-router-dom"
-import { FaHome } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import { FaHome, FaUserFriends, FaClipboardList, FaLayerGroup } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
-import { FaUserPen } from "react-icons/fa6";
-import './styles.css'
+import { MdCategory } from "react-icons/md";
+import './styles.css';
 
-
-function AsideMenuAdmin(){
-
-    const activeStyle = 'underline underline-offset-4'
+function AsideMenuAdmin() {
+    const activeStyle = "hover:bg-green-900";
 
     return (
-        <div className="aside-menu-container relative w-1/5 mb-32">
-            <aside className="aside-menu border rounded-sm fixed bg-sky-600 border-black w-1/5 overflow-y-auto h-screen">
+        <div className="aside-menu-container relative w-1/5 h-screen bg-gray-800 text-white shadow-lg rounded-sm">
+            <aside className="flex flex-col h-full">
+                {/* Header */}
+                <div className="py-4 text-center font-semibold text-xl border-b border-sky-800">
+                    Panel de Administración
+                </div>
 
-                <ul className="flex flex-col items-start py-5 px-5 text-lg">
-                    
-                    <li className="font-semibold text-xl py-2 mb-3">
-                        Operaciones
-                    </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/home'
-                            className={({ isActive}) =>
-                                isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <FaHome className="icon"/>
-                                Inicio
-                            </div>
-                            
+                {/* Menu Items */}
+                <ul className="flex flex-col py-4 space-y-2">
+                    <li>
+                        <NavLink to="/home" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
+                            <FaHome className="mr-3" />
+                            Inicio
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarUsuarios'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <FaUserPen className="icon"/>
-                                Gestionar Usuarios
-                            </div>
-                            
+                    <li>
+                        <NavLink to="/gestionarUsuarios" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
+                            <FaUserFriends className="mr-3" />
+                            Gestionar Usuarios
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarIndicadores'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar Indicadores
-                            </div>
-                            
+                    <li>
+                        <NavLink to="/gestionarIndicadores" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
+                            <FaClipboardList className="mr-3" />
+                            Gestionar Indicadores
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarCategorias'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar categorías de análisis
-                            </div>
+                    <li>
+                        <NavLink to="/gestionarCategorias" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
+                            <MdCategory className="mr-3" />
+                            Categorías de Análisis
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarDestinos'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar destinos de Impactos
-                            </div>
-                            
+                    <li>
+                        <NavLink to="/gestionarDestinos" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
+                            <IoIosCreate className="mr-3" />
+                            Destinos de Impacto
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarComponentes'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar componentes
-                            </div>
-                            
+                    <li>
+                        <NavLink to="/gestionarComponentes" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <FaLayerGroup className="mr-3" />
+                            Componentes
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarDimensiones'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar dimensiones
-                            </div>
-                            
+                    <li>
+                        <NavLink to="/gestionarDimensiones" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <FaLayerGroup className="mr-3" />
+                            Dimensiones
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarSubdimensiones'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar subdimensiones
-                            </div>
+                    <li>
+                        <NavLink to="/gestionarSubdimensiones" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <FaLayerGroup className="mr-3" />
+                            Subdimensiones
                         </NavLink>
                     </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to='/gestionarPlataformas'
-                            className={({ isActive}) =>
-                            isActive ? activeStyle : undefined
-                            }
-                        >
-                            <div className="flex">
-                                <IoIosCreate className="icon" />
-                                Gestionar plataformas tecnológicas
-                            </div>
+                    <li>
+                        <NavLink to="/gestionarEvaluacionesPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <FaClipboardList className="mr-3" />
+                            Evaluaciones de Plataformas
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/gestionarPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <FaClipboardList className="mr-3" />
+                            Plataformas Tecnológicas
                         </NavLink>
                     </li>
                 </ul>
+
+                {/* Footer */}
+                {/* <div className="mt-auto py-4 text-center text-sm border-t border-sky-800">
+                    &copy; 2024 PCTM
+                </div> */}
             </aside>
         </div>
-        
-    )
-
+    );
 }
 
-export default AsideMenuAdmin
+export default AsideMenuAdmin;

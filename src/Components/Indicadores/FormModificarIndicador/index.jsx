@@ -68,7 +68,7 @@ const EditarIndicador = () => {
           </Typography>
 
           <TextField
-            label="nombre"
+            label="Nombre"
             name="nombre"
             value={indicador.nombre}
             onChange={handleInputChange}
@@ -76,10 +76,28 @@ const EditarIndicador = () => {
           />
 
           <TextField
-            label="descripcion"
-            name="descripcion"
-            value={indicador.descripcion}
+            label="Concepto"
+            name="concepto"
+            value={indicador.concepto}
             onChange={handleInputChange}
+            margin="normal"
+          />
+
+          {/* TextField deshabilitado para mostrar la dimension*/}
+          <TextField
+            label="Dimensión"
+            name="dimension"
+            value={indicador.dimension_nombre || ''}
+            disabled // Propiedad para deshabilitar el campo
+            margin="normal"
+          />
+
+          {/* TextField deshabilitado para mostrar la subdimension*/}
+          <TextField
+            label="Subdimensión"
+            name="subdimension"
+            value={indicador.subdimension_nombre || ''}
+            disabled // Propiedad para deshabilitar el campo
             margin="normal"
           />
         

@@ -8,7 +8,7 @@ import { AuthContext } from '../../../Context/AuthContext';
 const EditarDimension = () => {
   const { id } = useParams();  // Obtener el ID de la URL
   const [dimension, setDimension] = useState(null);
-  const [componentes, setComponentes] = useState([]); // Estado para los componentes
+  // const [componentes, setComponentes] = useState([]); // Estado para los componentes
   const { usuario } = useContext(AuthContext);
   const navegar = useNavigate();  // Para redirigir después de la actualización
 
@@ -27,22 +27,22 @@ const EditarDimension = () => {
       }
     };
 
-    // Cargar los componentes
-    const loadComponentes = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/gestion_indicadores/api/componentes/', {
-          headers: {
-            Authorization: `Bearer ${usuario.tokenAccess}`,
-          },
-        });
-        setComponentes(response.data);
-      } catch (error) {
-        console.error('Error al cargar los componentes', error);
-      }
-    };
+    // // Cargar los componentes
+    // const loadComponentes = async () => {
+    //   try {
+    //     const response = await axios.get('http://127.0.0.1:8000/gestion_indicadores/api/componentes/', {
+    //       headers: {
+    //         Authorization: `Bearer ${usuario.tokenAccess}`,
+    //       },
+    //     });
+    //     setComponentes(response.data);
+    //   } catch (error) {
+    //     console.error('Error al cargar los componentes', error);
+    //   }
+    // };
 
     loadDimension();
-    loadComponentes();
+    // loadComponentes();
   }, [id, usuario.tokenAccess]);
 
   const handleInputChange = (e) => {
@@ -63,7 +63,7 @@ const EditarDimension = () => {
         navegar('/gestionarDimensiones');  // Redirigir a la lista de usuarios después de guardar
       }
     } catch (error) {
-      console.error('Error al actualizar el indicador', error);
+      console.error('Error al actualizar la dimension', error);
     }
   };
 
@@ -101,6 +101,15 @@ const EditarDimension = () => {
             label="Componente"
             name="componente"
             value={dimension.componente_nombre || ''}
+            disabled // Propiedad para deshabilitar el campo
+            margin="normal"
+          />
+
+          {/* TextField deshabilitado para mostrar el componente */}
+          <TextField
+            label="Destino de impacto"
+            name="destino"
+            value={dimension.destino_impacto_nombre || ''}
             disabled // Propiedad para deshabilitar el campo
             margin="normal"
           />

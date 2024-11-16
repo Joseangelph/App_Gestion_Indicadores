@@ -106,7 +106,7 @@ const FormCrearIndicador = () => {
 
   return (
     
-<Box className="form-container flex flex-col items-center justify-center mt-10 w-1/2 rounded-lg">
+<Box className="form-container flex flex-col items-center justify-center mt-10 w-3/4 rounded-lg">
       <Typography
         variant="h4"
         className="text-2xl font-bold text-blue-600 pb-3"
@@ -115,18 +115,33 @@ const FormCrearIndicador = () => {
         Registrar Indicador
       </Typography>
       
-      <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
-        <TextField
-          label="nombre"
-          name="nombre"
-          value={formData.nombre}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          error={Boolean(errors.nombre)}
-          helperText={errors.nombre}
-        />
+      <form onSubmit={handleSubmit} className="w-full max-w-3xl p-1">
+        <Box display="flex" gap={2} width="100%">
+          <TextField
+            label="Introducir nombre"
+            name="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            error={Boolean(errors.nombre)}
+            helperText={errors.nombre}
+          />
+
+          {/* Campo para Tipo */}
+          <TextField
+            label="Tipo"
+            name="tipo"
+            value={formData.tipo}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            error={Boolean(errors.tipo)}
+            helperText={errors.tipo}
+          />
+        </Box>
         
         <TextField
           label="concepto"
@@ -136,29 +151,22 @@ const FormCrearIndicador = () => {
           fullWidth
           margin="normal"
           variant="outlined"
-          error={Boolean(errors.nombre)}
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
+          error={Boolean(errors.concepto)}
           helperText={errors.nombre}
         />
 
-        {/* Campo para Tipo */}
-        <TextField
-          label="Tipo"
-          name="tipo"
-          value={formData.tipo}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          variant="outlined"
-        />
 
         {/* Contenedor para Dimensión */}
-       <Box display="flex" alignItems="center" gap={2} marginBottom={2}>
-          <FormControl fullWidth disabled={herencia === 'subdimension'}>
-            <InputLabel>Dimensión a la que pertenece</InputLabel>
+      <Box display="flex" alignItems="center" gap={2} marginBottom={2}>
+          <FormControl fullWidth disabled={herencia === 'subdimension'} >
+            <InputLabel >Dimensión a la que pertenece</InputLabel>
             <Select
               name="dimension"
               value={formData.dimension}
               onChange={handleChange}
+              label="Dimensión a la que pertenece"
             >
               {dimensionesHabilitadas.map((dimension) => (
                 <MenuItem key={dimension.id} value={dimension.id}>
@@ -183,11 +191,12 @@ const FormCrearIndicador = () => {
         {/* Contenedor para Subdimension */}
         <Box display="flex" alignItems="center" gap={2} marginBottom={2}>
           <FormControl fullWidth disabled={herencia === 'dimension'}>
-            <InputLabel>Subdimension a la que pertenece</InputLabel>
+            <InputLabel>Subdimensión a la que pertenece</InputLabel>
             <Select
               name="subdimension"
               value={formData.subdimension}
               onChange={handleChange}
+              label="Subimensión a la que pertenece"
             >
               {subdimensionesHabilitadas.map((subdimension) => (
                 <MenuItem key={subdimension.id} value={subdimension.id}>
@@ -222,13 +231,15 @@ const FormCrearIndicador = () => {
             type="submit"
             fullWidth
           >
-            Crear Indicador
+            Crear
           </Button>
-          <Button
+
+        <Button
           variant="outlined"
           color="secondary"
           onClick={() => navegar('/gestionarIndicadores')}
           style={{ marginLeft: '10px' }}
+          fullWidth
         >
           Cancelar
         </Button>
