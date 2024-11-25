@@ -1,11 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';  // Obtener el parámetro ID de la URL
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel,
+  FormControl
+} from '@mui/material';
 import { AuthContext } from '../../../Context/AuthContext';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
 
 
 const EditarIndicador = () => {
@@ -100,6 +99,24 @@ const EditarIndicador = () => {
             disabled // Propiedad para deshabilitar el campo
             margin="normal"
           />
+
+          <FormControl fullWidth margin="normal" variant="outlined">
+            <InputLabel id="tipo-label">Tipo</InputLabel>
+            <Select
+              labelId="tipo-label"
+              id="tipo"
+              name="tipo"
+              value={indicador.tipo}
+              onChange={handleInputChange}
+              label="Tipo"
+            >
+              <MenuItem value="">
+                <em>Selecciona el Tipo</em>
+              </MenuItem>
+              <MenuItem value="potencial">Potencial</MenuItem>
+              <MenuItem value="transversal">Transversal</MenuItem>
+            </Select>
+          </FormControl>
         
         
           <Box mt={2}>

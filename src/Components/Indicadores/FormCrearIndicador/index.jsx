@@ -5,9 +5,9 @@ import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
-import { createIndicador } from '../../../api/indicadores.api';
-import { getDimensiones } from '../../../api/dimensiones.api';
-import { getSubdimensiones } from '../../../api/subdimensiones.api';
+import { createIndicador } from '../../../Services/indicadores.api';
+import { getDimensiones } from '../../../Services/dimensiones.api';
+import { getSubdimensiones } from '../../../Services/subdimensiones.api';
 
 const FormCrearIndicador = () => {
   const [formData, setFormData] = useState({
@@ -79,10 +79,17 @@ const FormCrearIndicador = () => {
   }, [usuario.tokenAccess]);
 
   const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
     const tempErrors = {};
-    if (!formData.nombre.trim()) tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+
+    if (!formData.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(formData.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+    
     if (!formData.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
-    if (!formData.tipo.trim()) tempErrors.tipo = "El campo 'Tipo' es obligatorio.";
+    if (!formData.tipo) tempErrors.tipo = "Debe seleccionar un tipo.";
     if (herencia === 'dimension' && !formData.dimension) {
       tempErrors.selects = "Debe seleccionar una dimensión.";
     }
@@ -129,18 +136,29 @@ const FormCrearIndicador = () => {
             helperText={errors.nombre}
           />
 
-          {/* Campo para Tipo */}
-          <TextField
-            label="Tipo"
-            name="tipo"
-            value={formData.tipo}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            error={Boolean(errors.tipo)}
-            helperText={errors.tipo}
-          />
+          <FormControl fullWidth margin="normal" variant="outlined">
+            <InputLabel id="tipo-label">Tipo</InputLabel>
+            <Select
+              labelId="tipo-label"
+              id="tipo"
+              name="tipo"
+              value={formData.tipo}
+              onChange={handleChange}
+              label="Tipo"
+            >
+              <MenuItem value="">
+                <em>Selecciona el Tipo</em>
+              </MenuItem>
+              <MenuItem value="potencial">Potencial</MenuItem>
+              <MenuItem value="transversal">Transversal</MenuItem>
+            </Select>
+            {errors.tipo && (
+              <Typography color="error" variant="body2">
+                {errors.tipo}
+              </Typography>
+            )}
+          </FormControl>
+
         </Box>
         
         <TextField

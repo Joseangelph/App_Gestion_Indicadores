@@ -56,6 +56,26 @@ const MostrarComponente = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
+          Destino de impacto:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {componente.destino_impacto_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Categoria de análisis:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {componente.categoria_analisis_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
           Concepto:
         </Typography>
         <TextareaAutosize

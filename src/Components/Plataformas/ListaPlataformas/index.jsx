@@ -14,7 +14,7 @@ import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { deletePlataforma, getPlataformas } from '../../../api/plataformas.api';
+import { deletePlataforma, getPlataformas } from '../../../Services/plataformas.api';
 
 
 const ListaPlataforma = () => {

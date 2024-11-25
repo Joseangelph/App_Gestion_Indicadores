@@ -44,7 +44,8 @@ const MostrarIndicador = () => {
         Detalles del Indicador
       </Typography>
 
-      <Paper elevation={3} sx={{ padding: 4, maxWidth: 600, width: '100%' }}>
+      <Paper elevation={3} sx={{ padding: 4, minWidth: 700, width: '100%' }}>
+        
         <Typography variant="h6" gutterBottom>
           Nombre:
         </Typography>
@@ -53,6 +54,66 @@ const MostrarIndicador = () => {
           sx={{ marginBottom: 2, wordBreak: 'break-word' }}
         >
           {indicador.nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Tipo:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {indicador.tipo}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Subdimensión:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {indicador.subdimension}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Dimensión:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {indicador.dimension_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Componente:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {indicador.componente_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Destino de impacto:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {indicador.destino_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Categoría de análisis:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {indicador.categoria_nombre}
         </Typography>
 
         <Typography variant="h6" gutterBottom>

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl,  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
-import { createCategoria } from '../../../api/categorias.api';
+import { createCategoria } from '../../../Services/categorias.api';
 
 const FormCrearCategoria = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ const FormCrearCategoria = () => {
 
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+  const [errors, setErrors] = useState({}); // Estado para los errores
 
   const navegar= useNavigate();
 
@@ -24,13 +25,31 @@ const FormCrearCategoria = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await createCategoria(formData,usuario.tokenAccess)
-      setOpenDialog(true); // Abre el diálogo de éxito
-      return response.data;
-    } catch (error) {
-      console.error('Error en el registro:', error);
+    if (validateForm()) {
+      try {
+        const response = await createCategoria(formData,usuario.tokenAccess)
+        setOpenDialog(true); // Abre el diálogo de éxito
+        return response.data;
+      } catch (error) {
+        console.error('Error en el registro:', error);
+      }
     }
+  };
+
+
+  const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
+    const tempErrors = {};
+
+    if (!formData.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(formData.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+    
+    if (!formData.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
   };
 
   const handleCloseDialog = () => {
@@ -40,13 +59,13 @@ const FormCrearCategoria = () => {
 
   return (
     
-<Box className="form-container flex flex-col items-center justify-center mt-10 rounded-lg">
+    <Box className="form-container flex flex-col items-center justify-center mt-10 rounded-lg">
       <Typography
         variant="h4"
         className="text-2xl font-bold text-blue-600 pb-3"
         sx={{ fontFamily: 'Roboto, sans-serif' }}
       >
-        Registrar Categoría de analisis
+        Registrar Categoría de análisis
       </Typography>
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
@@ -58,6 +77,8 @@ const FormCrearCategoria = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          error={Boolean(errors.nombre)}
+          helperText={errors.nombre}
         />
         
         <TextField
@@ -68,6 +89,8 @@ const FormCrearCategoria = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          error={Boolean(errors.concepto)}
+          helperText={errors.concepto}
         />
         
         <Box mt={2} className="flex items-center justify-between">

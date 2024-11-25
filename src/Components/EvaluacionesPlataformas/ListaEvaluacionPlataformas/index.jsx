@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { BiSolidDetail } from "react-icons/bi";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { deleteEvaluacionPlataforma,getEvaluacionPlataformas } from '../../../api/evaluacionPlataformas.api';
+import { deleteEvaluacionPlataforma,getEvaluacionPlataformas } from '../../../Services/evaluacionPlataformas.api';
 
 
 const ListaEvaluacionPlataforma = () => {
@@ -62,7 +62,7 @@ const ListaEvaluacionPlataforma = () => {
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 250,
+          width: 350,
           renderCell: (params) => {
             const isPendienteEvaluacion = params.row.estado === 'pendiente a evaluar';
             const isPendienteSeleccion = params.row.estado === 'pendiente a selección';

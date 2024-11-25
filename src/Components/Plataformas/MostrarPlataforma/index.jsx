@@ -54,6 +54,36 @@ const MostrarPlataforma = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
+          Proyecto:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {plataforma.proyecto}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          URL:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {plataforma.url}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Alcance:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {plataforma.alcance}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
           Concepto:
         </Typography>
         <TextareaAutosize

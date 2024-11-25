@@ -15,7 +15,7 @@ export const RutasPublicas = ({ children }) => {
  
 
 
-    return !tokenExpired ? <Navigate to='/' /> : children;
+    return !tokenExpired ? <Navigate to='/home' /> : children;
 }
 
 

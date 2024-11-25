@@ -1,7 +1,7 @@
 
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { deleteIndicador, getIndicadores } from '../../../api/indicadores.api';
+import { deleteIndicador, getIndicadores } from '../../../Services/indicadores.api';
 // import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
@@ -17,7 +17,7 @@ import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { toggleHabilitado} from "../../../api/toggleHabilitado.api";
+import { toggleHabilitado} from "../../../Services/toggleHabilitado.api";
 
 
 const ListaIndicadores = () => {
@@ -123,14 +123,14 @@ const ListaIndicadores = () => {
               >
                 <FaPenToSquare />
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="error"
                 sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 <DeleteIcon />
-              </Button>
+              </Button> */}
             </Box>
           ),
         },

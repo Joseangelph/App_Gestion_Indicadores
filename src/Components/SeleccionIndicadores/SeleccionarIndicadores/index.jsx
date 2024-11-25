@@ -4,8 +4,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { AuthContext } from '../../../Context/AuthContext';
-import { getIndicadores } from '../../../api/indicadores.api';
-import { createSeleccionIndicadores } from '../../../api/seleccionIndicadores.api';
+import { getIndicadores } from '../../../Services/indicadores.api';
+import { createSeleccionIndicadores } from '../../../Services/seleccionIndicadores.api';
 
 const SeleccionarIndicadores = () => {
     const [indicadores, setIndicadores] = useState([]);
@@ -44,6 +44,7 @@ const SeleccionarIndicadores = () => {
 
     const columns = [
         { field: 'nombre', headerName: 'Nombre', width: 150 },
+        { field: 'tipo', headerName: 'Tipo', width: 100 },
         { field: 'subdimension_nombre', headerName: 'Subdimension', width: 150 },
         { field: 'dimension_nombre', headerName: 'Dimension', width: 150 },
         { field: 'componente_nombre', headerName: 'Componente', width: 150 },

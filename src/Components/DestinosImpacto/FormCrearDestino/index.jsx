@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl,  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
-import { createDestino } from '../../../api/destinos.api';
-import { getCategorias } from '../../../api/categorias.api';
+import { createDestino } from '../../../Services/destinos.api';
+import { getCategorias } from '../../../Services/categorias.api';
 
 const FormCrearDestino = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const FormCrearDestino = () => {
   });
 
   const [categorias, setCategorias] = useState([]); 
+  const [errors, setErrors] = useState({}); // Estado para los errores
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
   const categoriasHabilitadas = categorias.filter(categoria => categoria.habilitado);
@@ -43,16 +44,37 @@ const FormCrearDestino = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos enviados:', formData); // Verifica los datos antes de enviarlos
-
-    try {
-      const response = await createDestino(formData,usuario.tokenAccess)
-      setOpenDialog(true); // Abre el diálogo de éxito
-      return response.data;
-    } catch (error) {
-      console.error('Error en el registro:', error);
+    // console.log('Datos enviados:', formData); // Verifica los datos antes de enviarlos
+    if (validateForm()) {
+      try {
+        const response = await createDestino(formData,usuario.tokenAccess)
+        setOpenDialog(true); // Abre el diálogo de éxito
+        return response.data;
+      } catch (error) {
+        console.error('Error en el registro:', error);
+      }
     }
   };
+
+
+  const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
+    const tempErrors = {};
+
+    if (!formData.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(formData.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+    
+    if (!formData.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
+    if (!formData.categoria_analisis) {
+      tempErrors.selects = "Debe seleccionar una categoría de análisis.";
+    }
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -61,7 +83,7 @@ const FormCrearDestino = () => {
 
   return (
     
-<Box className="form-container flex flex-col items-center justify-center mt-10 w-1/2 rounded-lg">
+    <Box className="form-container flex flex-col items-center justify-center mt-10 w-1/2 rounded-lg">
       <Typography
         variant="h4"
         className="text-2xl font-bold text-blue-600 pb-3"
@@ -79,6 +101,8 @@ const FormCrearDestino = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          error={Boolean(errors.nombre)}
+          helperText={errors.nombre}
         />
         
         <TextField
@@ -89,6 +113,8 @@ const FormCrearDestino = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          error={Boolean(errors.concepto)}
+          helperText={errors.concepto}
         />
 
         {/* Select para elegir categoría */}
@@ -98,6 +124,7 @@ const FormCrearDestino = () => {
             name="categoria_analisis"
             value={formData.categoria_analisis}
             onChange={handleChange}
+            label="Categoría de Análisis a la que pertenece"
           >
             {categoriasHabilitadas.map((categoria) => (
               <MenuItem key={categoria.id} value={categoria.id}>
@@ -106,6 +133,12 @@ const FormCrearDestino = () => {
             ))}
           </Select>
         </FormControl>
+
+        {errors.selects && (
+          <Typography color="error" variant="body2">
+            {errors.selects}
+          </Typography>
+        )}
         
         <Box mt={2} className="flex items-center justify-between">
           <Button 

@@ -6,9 +6,9 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
-import { createDimension } from '../../../api/dimensiones.api';
-import { getComponentes } from '../../../api/componentes.api';
-import { getDestinos } from '../../../api/destinos.api';
+import { createDimension } from '../../../Services/dimensiones.api';
+import { getComponentes } from '../../../Services/componentes.api';
+import { getDestinos } from '../../../Services/destinos.api';
 
 const FormCrearDimension = () => {
   const [formData, setFormData] = useState({
@@ -26,8 +26,6 @@ const FormCrearDimension = () => {
   const [herencia, setHerencia] = useState('destino'); // Estado para controlar qué select está habilitado
   const componentesHabilitados = componentes.filter(componente => componente.habilitado);
   const destinosHabilitados = destinos.filter(destino => destino.habilitado);
-
-
   const navegar= useNavigate();
 
   useEffect(() => {
@@ -62,9 +60,15 @@ const FormCrearDimension = () => {
   };
 
   const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
     const tempErrors = {};
 
-    if (!formData.nombre.trim()) tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    if (!formData.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(formData.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+
     if (!formData.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
 
     if (herencia === 'destino' && !formData.destino_impacto) {
@@ -124,7 +128,7 @@ return (
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
         <TextField
-          label="nombre"
+          label="Nombre"
           name="nombre"
           value={formData.nombre}
           onChange={handleChange}
@@ -136,7 +140,7 @@ return (
         />
         
         <TextField
-          label="concepto"
+          label="Concepto"
           name="concepto"
           value={formData.concepto}
           onChange={handleChange}
@@ -155,6 +159,7 @@ return (
               name="destino_impacto"
               value={formData.destino_impacto}
               onChange={handleChange}
+              label="Destino de impacto al que pertenece"
             >
               {destinosHabilitados.map((destino) => (
                 <MenuItem key={destino.id} value={destino.id}>
@@ -184,6 +189,7 @@ return (
               name="componente"
               value={formData.componente}
               onChange={handleChange}
+              label="Componente al que pertenece"
             >
               {componentesHabilitados.map((componente) => (
                 <MenuItem key={componente.id} value={componente.id}>
@@ -218,7 +224,7 @@ return (
             type="submit"
             fullWidth
           >
-            Crear Dimension
+            Crear Dimensión
           </Button>
 
           <Button
@@ -237,7 +243,7 @@ return (
         <DialogTitle>{"Dimension creada"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            La Dimension ha sido creado exitosamente.
+            La dimensión ha sido creado exitosamente.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

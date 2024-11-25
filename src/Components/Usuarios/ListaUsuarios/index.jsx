@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { deleteUser, getAllUsers } from '../../../api/users.api'
+import { deleteUser, getAllUsers } from '../../../Services/users.api'
 // import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';

@@ -12,7 +12,7 @@ export const RutasGenerales = ({ children }) => {
     const tokenExpired = isExpired(usuario.tokenAccess);
 
     if(!tokenExpired ){
-        if((usuario.role === "experto")|| (usuario.role === "administrador") ){
+        if((usuario.role === "experto")|| (usuario.role === "administrador") || (usuario.role === "cliente") ){
             return <>{children} </>
         }
         else {

@@ -8,7 +8,7 @@ import FormCrearEvaluacionIndicador from "../../Components/EvaluacionesIndicador
 import ListaEvaluacionIndicadores from "../../Components/EvaluacionesIndicadores/ListaEvaluacionIndicadores";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import { getSeleccionesIndicadores } from '../../api/seleccionIndicadores.api';
+import { getSeleccionesIndicadores } from '../../Services/seleccionIndicadores.api';
 
 function GestionarEvaluacionesIndicadores() {
     const [evaluacionesIndicadores, setEvaluacionesIndicadores] = useState([]);

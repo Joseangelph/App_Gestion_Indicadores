@@ -17,10 +17,10 @@ function GestionarDestinos() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar Destinos de impacto
+              Gestionar destinos de impacto
             </Typography>
             <div className=" flex justify-between mt-5 mb-5">
-              <Button onClick={()=>navegar('/crearDestinos')} variant="contained">Crear Destinos</Button>
+              <Button onClick={()=>navegar('/crearDestinos')} variant="contained">Crear destinos de impacto</Button>
             </div>
             <div>
               <ListaDestinos/>

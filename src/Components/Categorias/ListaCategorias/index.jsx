@@ -16,8 +16,8 @@ import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { deleteCategoria, getCategorias } from '../../../api/categorias.api';
-import { toggleHabilitado} from "../../../api/toggleHabilitado.api"
+import { deleteCategoria, getCategorias } from '../../../Services/categorias.api';
+import { toggleHabilitado} from "../../../Services/toggleHabilitado.api"
 
 
 const ListaCategoria = () => {
@@ -67,10 +67,10 @@ const ListaCategoria = () => {
       }
     };
 
-    const handleOpenDialog = (id) => {
-      setSelectedId(id); // Guarda el ID de la categoria a eliminar
-      setOpenDialog(true); // Abre el diálogo
-    };
+    // const handleOpenDialog = (id) => {
+    //   setSelectedId(id); // Guarda el ID de la categoria a eliminar
+    //   setOpenDialog(true); // Abre el diálogo
+    // };
 
     // Función para manejar la edición de la categoria
     const handleEdit = (id) => {
@@ -124,14 +124,14 @@ const ListaCategoria = () => {
               >
                 <FaPenToSquare />
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="error"
                 sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 <DeleteIcon />
-              </Button>
+              </Button> */}
             </Box>
           ),
         },

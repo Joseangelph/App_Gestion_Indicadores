@@ -55,6 +55,36 @@ const MostrarDimension = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
+          Componente:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {dimension.componente_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Destino de impacto:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {dimension.destino_impacto_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Categoría de análisis:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {dimension.categoria_analisis_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
           Concepto:
         </Typography>
         <TextareaAutosize

@@ -3,7 +3,6 @@ import AppRouter from '../routes/AppRouter'
 import { AuthContext } from '../../Context/AuthContext';
 import { useEffect, useReducer } from 'react';
 import { authReducer } from '../../auth/authReducer';
-// import { AuthProvider } from '../../Context/AuthContext';
 
 const init = () => {
   return JSON.parse( localStorage.getItem('usuario') ) || { logged: false, tokenAccess: '' };

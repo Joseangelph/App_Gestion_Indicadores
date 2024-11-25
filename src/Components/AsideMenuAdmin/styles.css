@@ -1,6 +1,7 @@
 .aside-menu-container {
     /* background-color: #0284c7; */
     color: #ffffff;
+    top: 80px;
 }
 
 .aside-menu-container a {

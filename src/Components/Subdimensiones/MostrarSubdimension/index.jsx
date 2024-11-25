@@ -56,6 +56,46 @@ const MostrarSubdimension = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
+          Dimensión:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {subdimension.dimension_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Componente:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {subdimension.componente_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Destino de impacto:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {subdimension.destino_impacto_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Categoría de análisis:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {subdimension.categoria_analisis_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
           Concepto:
         </Typography>
         <TextareaAutosize

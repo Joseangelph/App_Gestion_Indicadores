@@ -120,8 +120,9 @@ const FormCrearUsuario = () => {
             <MenuItem value="">
               <em>Selecciona el Rol</em>
             </MenuItem>
-            <MenuItem value="experto">Experto</MenuItem>
             <MenuItem value="administrador">Administrador</MenuItem>
+            <MenuItem value="experto">Experto</MenuItem>
+            <MenuItem value="cliente">Cliente</MenuItem>
           </Select>
         </FormControl>
         

@@ -1,11 +1,17 @@
+import { useContext } from 'react'
 import { NavLink } from "react-router-dom";
 import { FaHome, FaUserFriends, FaClipboardList, FaLayerGroup } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
 import { MdCategory } from "react-icons/md";
+import { AuthContext } from '../../Context/AuthContext';
 import './styles.css';
 
 function AsideMenuAdmin() {
     const activeStyle = "hover:bg-green-900";
+    const { usuario } = useContext(AuthContext);
+    const isAdmin = usuario.role=== 'administrador';
+    const isExpert = usuario.role === 'experto';
+    const isClient = usuario.role === 'cliente';
 
     return (
         <div className="aside-menu-container relative w-1/5 h-screen bg-gray-800 text-white shadow-lg rounded-sm">
@@ -23,66 +29,76 @@ function AsideMenuAdmin() {
                             Inicio
                         </NavLink>
                     </li>
-                    <li>
+
+                    {isAdmin && (<li>
                         <NavLink to="/gestionarUsuarios" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <FaUserFriends className="mr-3" />
                             Gestionar Usuarios
                         </NavLink>
-                    </li>
-                    <li>
+                    </li>)}
+
+                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarIndicadores" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <FaClipboardList className="mr-3" />
                             Gestionar Indicadores
                         </NavLink>
-                    </li>
-                    <li>
+                    </li>)}
+
+                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarCategorias" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <MdCategory className="mr-3" />
                             Categorías de Análisis
                         </NavLink>
-                    </li>
-                    <li>
+                    </li>)}
+
+                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarDestinos" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <IoIosCreate className="mr-3" />
                             Destinos de Impacto
                         </NavLink>
-                    </li>
-                    <li>
+                    </li>)}
+
+                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarComponentes" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaLayerGroup className="mr-3" />
                             Componentes
                         </NavLink>
-                    </li>
-                    <li>
+                    </li>)}
+
+                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarDimensiones" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaLayerGroup className="mr-3" />
                             Dimensiones
                         </NavLink>
-                    </li>
-                    <li>
+                    </li>)}
+
+                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarSubdimensiones" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaLayerGroup className="mr-3" />
                             Subdimensiones
                         </NavLink>
-                    </li>
+                    </li>)}
+
                     <li>
                         <NavLink to="/gestionarEvaluacionesPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaClipboardList className="mr-3" />
                             Evaluaciones de Plataformas
                         </NavLink>
                     </li>
+
                     <li>
                         <NavLink to="/gestionarPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaClipboardList className="mr-3" />
                             Plataformas Tecnológicas
                         </NavLink>
                     </li>
+
                 </ul>
 
                 {/* Footer */}
-                {/* <div className="mt-auto py-4 text-center text-sm border-t border-sky-800">
+                <div className="mt-auto py-4 text-center text-sm border-t border-sky-800">
                     &copy; 2024 PCTM
-                </div> */}
+                </div>
             </aside>
         </div>
     );

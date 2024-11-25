@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl,  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
-import { createSubdimension } from '../../../api/subdimensiones.api';
-import { getDimensiones } from '../../../api/dimensiones.api';
+import { createSubdimension } from '../../../Services/subdimensiones.api';
+import { getDimensiones } from '../../../Services/dimensiones.api';
 
 const FormCrearSubdimension = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const FormCrearSubdimension = () => {
   });
 
   const [dimensiones, setDimensiones] = useState([]); 
+  const [errors, setErrors] = useState({}); // Estado para los errores
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
   const dimensionesHabilitadas = dimensiones.filter(dimension => dimension.habilitado);
@@ -42,16 +43,37 @@ const FormCrearSubdimension = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos enviados:', formData); // Verifica los datos antes de enviarlos
-
-    try {
-      const response = await createSubdimension(formData,usuario.tokenAccess)
-      setOpenDialog(true); // Abre el diálogo de éxito
-      return response.data;
-    } catch (error) {
-      console.error('Error en el registro:', error);
+    // console.log('Datos enviados:', formData); // Verifica los datos antes de enviarlos
+    if (validateForm()) {
+      try {
+        const response = await createSubdimension(formData,usuario.tokenAccess)
+        setOpenDialog(true); // Abre el diálogo de éxito
+        return response.data;
+      } catch (error) {
+        console.error('Error en el registro:', error);
+      }
     }
   };
+
+
+  const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
+    const tempErrors = {};
+
+    if (!formData.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(formData.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+    
+    if (!formData.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
+    if (!formData.dimension) {
+      tempErrors.selects = "Debe seleccionar una dimensión";
+    }
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -71,32 +93,37 @@ const FormCrearSubdimension = () => {
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
         <TextField
-          label="nombre"
+          label="Nombre"
           name="nombre"
           value={formData.nombre}
           onChange={handleChange}
           fullWidth
           margin="normal"
           variant="outlined"
+          error={Boolean(errors.nombre)}
+          helperText={errors.nombre}
         />
         
         <TextField
-          label="concepto"
+          label="Concepto"
           name="concepto"
           value={formData.concepto}
           onChange={handleChange}
           fullWidth
           margin="normal"
           variant="outlined"
+          error={Boolean(errors.concepto)}
+          helperText={errors.concepto}
         />
 
         {/* Select para elegir la dimension */}
         <FormControl fullWidth margin="normal">
-          <InputLabel>Dimension a la que pertenece</InputLabel>
+          <InputLabel>Dimensión a la que pertenece</InputLabel>
           <Select
             name="dimension"
             value={formData.dimension}
             onChange={handleChange}
+            label="Dimensión a la que pertenece"
           >
             {dimensionesHabilitadas.map((dimension) => (
               <MenuItem key={dimension.id} value={dimension.id}>
@@ -105,6 +132,12 @@ const FormCrearSubdimension = () => {
             ))}
           </Select>
         </FormControl>
+
+        {errors.selects && (
+          <Typography color="error" variant="body2">
+            {errors.selects}
+          </Typography>
+        )}
         
         <Box mt={2} className="flex items-center justify-between">
           <Button 
@@ -132,7 +165,7 @@ const FormCrearSubdimension = () => {
         <DialogTitle>{"Subdimension creada"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            La Subdimension ha sido creada exitosamente.
+            La subdimensión ha sido creada exitosamente.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

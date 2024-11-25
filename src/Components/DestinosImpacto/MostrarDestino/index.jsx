@@ -56,6 +56,16 @@ const MostrarDestino = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
+          Categoría de análisis:
+        </Typography>
+        <Typography 
+          variant="body1" 
+          sx={{ marginBottom: 2, wordBreak: 'break-word' }}
+        >
+          {destino.categoria_analisis_nombre}
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
           Concepto:
         </Typography>
         <TextareaAutosize

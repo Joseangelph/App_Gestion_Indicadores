@@ -1,22 +1,41 @@
-import { useState } from "react"
-import  Register  from "../Register";
+import React from "react";
 import FormAutenticar from "../FormAutenticar";
 import Logo from "./Logo.png";
-import "./styles.css"
+import { Box, Typography, Paper } from "@mui/material";
 
 export const PaginaInicio = () => {
-
-    // const [tieneCuenta, setTieneCuenta] = useState(true);
-    const logo = Logo
-
-    return (
-    
-    <div className="paginaInicio auth-page w-screen fixed h-screen">
-        <div className="flex flex-col items-center mt-16">
-            <img src={logo} alt="Logo" className="w-60 object-contain mb-4" />
-            <FormAutenticar/>
-            {/* {tieneCuenta ? <FormAutenticar setTieneCuenta={setTieneCuenta} /> : <Register setTieneCuenta={setTieneCuenta} />} */}
-        </div>
-        
-    </div>)
-}
+  return (
+    <Box
+      className="paginaInicio"
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#646464", // Fondo gris claro
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Paper
+        elevation={10}
+        className="flex flex-col items-center"
+        sx={{
+          padding: 4,
+          borderRadius: 4,
+          maxWidth: 450,
+          textAlign: "center",
+          backgroundColor: "#f4f4f4",
+        }}
+      >
+        <img src={Logo} alt="Logo" style={{ width: "90px", height:"85px" ,marginBottom: "5px" }} />
+        <Typography variant="h5" style={{marginBottom:"20px"}} fontWeight="bold" gutterBottom>
+          Sistema de Gestion de indicadores para la medicion de impacto
+        </Typography>
+        <Typography variant="body1" color="textSecondary" gutterBottom>
+          Inicia sesión para continuar.
+        </Typography>
+        <FormAutenticar />
+      </Paper>
+    </Box>
+  );
+};

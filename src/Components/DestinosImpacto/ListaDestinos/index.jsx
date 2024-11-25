@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,12 +12,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
-import { toggleHabilitado} from "../../../api/toggleHabilitado.api"
+import { toggleHabilitado} from "../../../Services/toggleHabilitado.api"
 import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { deleteDestino, getDestinos } from '../../../api/destinos.api';
+import { deleteDestino, getDestinos } from '../../../Services/destinos.api';
 
 
 const ListaDestinos = () => {
@@ -67,10 +67,10 @@ const ListaDestinos = () => {
       }
     };
 
-    const handleOpenDialog = (id) => {
-      setSelectedId(id); // Guarda el ID del destino de impacto a eliminar
-      setOpenDialog(true); // Abre el diálogo
-    };
+    // const handleOpenDialog = (id) => {
+    //   setSelectedId(id); // Guarda el ID del destino de impacto a eliminar
+    //   setOpenDialog(true); // Abre el diálogo
+    // };
 
     // Función para manejar la edición del Destino de impacto
     const handleEdit = (id) => {
@@ -120,14 +120,14 @@ const ListaDestinos = () => {
               >
                 <FaPenToSquare />
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="error"
                 sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 <DeleteIcon />
-              </Button>
+              </Button> */}
             </Box>
           ),
         },

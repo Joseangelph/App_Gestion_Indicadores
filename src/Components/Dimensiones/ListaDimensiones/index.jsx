@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -16,8 +16,8 @@ import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { deleteDimension, getDimensiones } from '../../../api/dimensiones.api';
-import { toggleHabilitado} from "../../../api/toggleHabilitado.api";
+import { deleteDimension, getDimensiones } from '../../../Services/dimensiones.api';
+import { toggleHabilitado} from "../../../Services/toggleHabilitado.api";
 
 
 const ListaDimensiones = () => {
@@ -68,10 +68,10 @@ const ListaDimensiones = () => {
       }
     };
 
-    const handleOpenDialog = (id) => {
-      setSelectedId(id); // Guarda el ID de la dimension a eliminar
-      setOpenDialog(true); // Abre el diálogo
-    };
+    // const handleOpenDialog = (id) => {
+    //   setSelectedId(id); // Guarda el ID de la dimension a eliminar
+    //   setOpenDialog(true); // Abre el diálogo
+    // };
 
     // Función para manejar la edición de la dimension
     const handleEdit = (id) => {
@@ -123,14 +123,14 @@ const ListaDimensiones = () => {
               >
                 <FaPenToSquare />
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="error"
                 sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 <DeleteIcon />
-              </Button>
+              </Button> */}
             </Box>
           ),
         },

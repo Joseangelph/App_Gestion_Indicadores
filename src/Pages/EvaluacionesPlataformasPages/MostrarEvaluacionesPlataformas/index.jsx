@@ -16,7 +16,7 @@ function MostrarEvaluacionesPlataformas() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Detalles de las evaluaciones de indicadores la plataforma
+              Detalles de las evaluaciones de indicadores a la plataforma
             </Typography>
             <div>
               <MostrarEvaluacionPlataforma/>

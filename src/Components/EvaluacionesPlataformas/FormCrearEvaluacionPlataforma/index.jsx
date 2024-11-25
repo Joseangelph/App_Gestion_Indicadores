@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl,  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
-import { createEvaluacionPlataforma } from '../../../api/evaluacionPlataformas.api';
-import { getPlataformas } from '../../../api/plataformas.api';
+import { createEvaluacionPlataforma } from '../../../Services/evaluacionPlataformas.api';
+import { getPlataformas } from '../../../Services/plataformas.api';
 
 const FormCrearEvaluacionPlataforma = () => {
   const [formData, setFormData] = useState({
