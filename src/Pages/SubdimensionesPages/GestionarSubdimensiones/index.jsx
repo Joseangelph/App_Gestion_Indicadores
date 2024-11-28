@@ -17,7 +17,7 @@ function GestionarSubdimensiones() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar Subdimensiones
+              Gestionar subdimensiones
             </Typography>
             <div className=" flex justify-between mt-5 mb-5">
               <Button onClick={()=>navegar('/crearSubdimensiones')} variant="contained">Crear Subdimensiones</Button>

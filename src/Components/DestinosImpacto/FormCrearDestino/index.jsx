@@ -89,12 +89,12 @@ const FormCrearDestino = () => {
         className="text-2xl font-bold text-blue-600 pb-3"
         sx={{ fontFamily: 'Roboto, sans-serif' }}
       >
-        Registrar Destinos de impacto
+        Registrar destinos de impacto
       </Typography>
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
         <TextField
-          label="nombre"
+          label="Nombre"
           name="nombre"
           value={formData.nombre}
           onChange={handleChange}
@@ -106,7 +106,7 @@ const FormCrearDestino = () => {
         />
         
         <TextField
-          label="concepto"
+          label="Concepto"
           name="concepto"
           value={formData.concepto}
           onChange={handleChange}
@@ -115,16 +115,18 @@ const FormCrearDestino = () => {
           variant="outlined"
           error={Boolean(errors.concepto)}
           helperText={errors.concepto}
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
         />
 
         {/* Select para elegir categoría */}
         <FormControl fullWidth margin="normal">
-          <InputLabel>Categoría de Análisis a la que pertenece</InputLabel>
+          <InputLabel>Categoría de análisis a la que pertenece</InputLabel>
           <Select
             name="categoria_analisis"
             value={formData.categoria_analisis}
             onChange={handleChange}
-            label="Categoría de Análisis a la que pertenece"
+            label="Categoría de análisis a la que pertenece"
           >
             {categoriasHabilitadas.map((categoria) => (
               <MenuItem key={categoria.id} value={categoria.id}>
@@ -147,7 +149,7 @@ const FormCrearDestino = () => {
             type="submit"
             fullWidth
           >
-            Crear Destino de impacto
+            Crear
           </Button>
 
           <Button
@@ -155,6 +157,7 @@ const FormCrearDestino = () => {
           color="secondary"
           onClick={() => navegar('/gestionarDestinos')}
           style={{ marginLeft: '10px' }}
+          fullWidth
         >
           Cancelar
         </Button>
@@ -166,7 +169,7 @@ const FormCrearDestino = () => {
         <DialogTitle>{"Destino de impacto creado"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            El Destino de impacto ha sido creado exitosamente.
+            El destino de impacto ha sido creado exitosamente.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

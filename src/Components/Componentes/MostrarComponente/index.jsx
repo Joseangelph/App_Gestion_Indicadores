@@ -66,7 +66,7 @@ const MostrarComponente = () => {
         </Typography>
 
         <Typography variant="h6" gutterBottom>
-          Categoria de análisis:
+          Categoría de análisis:
         </Typography>
         <Typography 
           variant="body1" 

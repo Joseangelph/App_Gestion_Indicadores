@@ -16,7 +16,7 @@ function GestionarUsuarios() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar Usuarios
+              Gestionar usuarios
             </Typography>
             <div className="mt-5 mb-5">
               <Button onClick={()=>navegar('/crearUsuarios')} variant="contained">Crear Usuario</Button>

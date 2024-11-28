@@ -9,6 +9,8 @@ const EditarDestino = () => {
   const { id } = useParams();  // Obtener el ID de la URL
   const [destino, setDestino] = useState(null);
   const [categorias, setCategorias] = useState([]); // Estado para las categorías
+  const [errors, setErrors] = useState({}); // Estado para los errores
+  const categoriasHabilitadas = categorias.filter(categoria => categoria.habilitado);
   const { usuario } = useContext(AuthContext);
   const navegar = useNavigate();  // Para redirigir después de la actualización
 
@@ -45,25 +47,47 @@ const EditarDestino = () => {
     loadCategorias();
   }, [id, usuario.tokenAccess]);
 
+
+  const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
+    const tempErrors = {};
+
+    if (!destino.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(destino.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+    
+    if (!destino.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
+    if (!destino.categoria_analisis) {
+      tempErrors.selects = "Debe seleccionar una categoría de análisis.";
+    }
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDestino({ ...destino, [name]: value });  // Actualizar los valores del formulario
   };
 
   const handleSave = async () => {
-    try {
-      const response = await axios.put(`http://127.0.0.1:8000/gestion_indicadores/api/destinos/${id}/`, destino, {
-        headers: {
-          Authorization: `Bearer ${usuario.tokenAccess}`,
-        },
-      });
+    if (validateForm()) {
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/gestion_indicadores/api/destinos/${id}/`, destino, {
+          headers: {
+            Authorization: `Bearer ${usuario.tokenAccess}`,
+          },
+        });
 
-      if (response.status === 200) {
-        console.log('Usuario actualizado exitosamente');
-        navegar('/gestionarDestinos');  // Redirigir a la lista de usuarios después de guardar
+        if (response.status === 200) {
+          console.log('Usuario actualizado exitosamente');
+          navegar('/gestionarDestinos');  // Redirigir a la lista de usuarios después de guardar
+        }
+      } catch (error) {
+        console.error('Error al actualizar el indicador', error);
       }
-    } catch (error) {
-      console.error('Error al actualizar el indicador', error);
     }
   };
 
@@ -77,34 +101,63 @@ const EditarDestino = () => {
           className="text-4xl font-bold text-blue-600"
           sx={{ fontFamily: 'Roboto, sans-serif' }}
           >
-          Editar Destino de impacto
+          Editar destino de impacto
           </Typography>
 
           <TextField
-            label="nombre"
+            label="Nombre"
             name="nombre"
             value={destino.nombre}
             onChange={handleInputChange}
             margin="normal"
+            fullWidth
+            error={Boolean(errors.nombre)}
+            helperText={errors.nombre}
           />
 
           <TextField
-            label="concepto"
+            label="Concepto"
             name="concepto"
             value={destino.concepto}
             onChange={handleInputChange}
             margin="normal"
+            fullWidth
+            error={Boolean(errors.concepto)}
+            helperText={errors.concepto}
+            multiline // Convierte el TextField en un textarea
+            rows={4} // Número de filas visibles iniciales
           />
 
-          {/* TextField deshabilitado para mostrar la categoría de análisis */}
-          <TextField
+          {/* Select para elegir categoría */}
+        <FormControl fullWidth margin="normal">
+          <InputLabel>Categoría de análisis a la que pertenece</InputLabel>
+          <Select
+            name="categoria_analisis"
+            value={destino.categoria_analisis}
+            onChange={handleInputChange}
+            label="Categoría de Análisis a la que pertenece"
+          >
+            {categoriasHabilitadas.map((categoria) => (
+              <MenuItem key={categoria.id} value={categoria.id}>
+                {categoria.nombre}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+          {/* <TextField
             label="Categoría de Análisis"
             name="categoria_analisis"
-            value={destino.categoria_analisis_nombre || ''} // Asegúrate de que este valor exista
-            disabled // Propiedad para deshabilitar el campo
+            value={destino.categoria_analisis_nombre || ''}
+            disabled 
             margin="normal"
-          />
+          />  */}
         
+          {errors.selects && (
+            <Typography color="error" variant="body2">
+              {errors.selects}
+            </Typography>
+          )}
         
           <Box mt={2}>
             <Button variant="contained" color="primary" onClick={handleSave}>

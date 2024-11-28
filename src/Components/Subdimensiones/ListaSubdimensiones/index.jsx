@@ -96,7 +96,7 @@ const ListaSubdimensiones = () => {
           />
         )},
         {field: 'nombre', headerName: 'Nombre', width: 350, editable: true},
-        { field: 'dimension_nombre', headerName: 'Dimension', width: 350, editable: false },
+        { field: 'dimension_nombre', headerName: 'Dimensión', width: 350, editable: false },
         {
           field: 'actions',
           headerName: 'Acciones',

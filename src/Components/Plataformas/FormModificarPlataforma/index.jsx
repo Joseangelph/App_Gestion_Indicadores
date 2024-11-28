@@ -12,6 +12,7 @@ const EditarPlataforma = () => {
   const { id } = useParams();  // Obtener el ID de la URL
   const [plataforma, setPlataforma] = useState(null);
   const { usuario } = useContext(AuthContext);
+  const [errors, setErrors] = useState({});
   const navegar = useNavigate();  // Para redirigir después de la actualización
 
   useEffect(() => {
@@ -38,20 +39,61 @@ const EditarPlataforma = () => {
   };
 
   const handleSave = async () => {
-    try {
-      const response = await axios.put(`http://127.0.0.1:8000/gestion_plataformas/api/plataformas/${id}/`, plataforma, {
-        headers: {
-          Authorization: `Bearer ${usuario.tokenAccess}`,
-        },
-      });
+    if (validateForm()) {
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/gestion_plataformas/api/plataformas/${id}/`, plataforma, {
+          headers: {
+            Authorization: `Bearer ${usuario.tokenAccess}`,
+          },
+        });
 
-      if (response.status === 200) {
-        console.log('Usuario actualizado exitosamente');
-        navegar('/gestionarPlataformas');  // Redirigir a la lista de usuarios después de guardar
+        if (response.status === 200) {
+          console.log('Usuario actualizado exitosamente');
+          navegar('/gestionarPlataformas');  // Redirigir a la lista de usuarios después de guardar
+        }
+      } catch (error) {
+        console.error('Error al actualizar el indicador', error);
       }
-    } catch (error) {
-      console.error('Error al actualizar el indicador', error);
     }
+  };
+
+
+  const validateForm = () => {
+    const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios
+    const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[a-zA-Z]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;%=]*)?$/;
+    const tempErrors = {};
+
+    // Validación del campo 'nombre'
+    if (!plataforma.nombre.trim()) {
+      tempErrors.nombre = "El campo 'nombre' es obligatorio.";
+    } else if (!nombreRegex.test(plataforma.nombre)) {
+      tempErrors.nombre = "El nombre no puede contener números ni caracteres especiales.";
+    }
+
+    // Validación de la descripción
+    if (!plataforma.descripcion.trim()) {
+      tempErrors.descripcion = "El campo 'descripcion' es obligatorio.";
+    }
+
+    // Validación del campo 'proyecto'
+    if (!plataforma.proyecto.trim()) {
+      tempErrors.proyecto = "El campo 'proyecto' es obligatorio.";
+    } else if (!nombreRegex.test(plataforma.proyecto)) {
+      tempErrors.proyecto = "El proyecto no puede contener números ni caracteres especiales.";
+    }
+
+    // Validación del campo 'url'
+    if (!plataforma.url.trim()) {
+      tempErrors.url = "El campo 'URL' es obligatorio.";
+    } else if (!urlRegex.test(plataforma.url)) {
+      tempErrors.url = "La URL no es válida. Ejemplo: https://example.com";
+    }
+
+    //Validación del campo 'alcance'
+    if (!plataforma.alcance.trim()) tempErrors.alcance = "El campo 'alcance' es obligatorio.";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0; // Retorna true si no hay errores
   };
 
   if (!plataforma) return <div>Cargando...</div>;  // Mostrar un mensaje mientras se cargan los datos
@@ -68,43 +110,60 @@ const EditarPlataforma = () => {
           </Typography>
 
           <TextField
-            label="nombre"
+            label="Nombre"
             name="nombre"
             value={plataforma.nombre}
             onChange={handleInputChange}
             margin="normal"
+            fullWidth
+            error={!!errors.nombre}
+            helperText={errors.nombre}
           />
 
           <TextField
-            label="descripcion"
+            label="Descripción"
             name="descripcion"
             value={plataforma.descripcion}
             onChange={handleInputChange}
             margin="normal"
+            fullWidth
+            multiline // Convierte el TextField en un textarea
+            rows={4} // Número de filas visibles iniciales
+            error={Boolean(errors.descripcion)}
+            helperText={errors.descripcion}
           />
 
           <TextField
-            label="proyecto"
+            label="Proyecto"
             name="proyecto"
             value={plataforma.proyecto}
             onChange={handleInputChange}
+            fullWidth
             margin="normal"
+            error={!!errors.proyecto}
+           helperText={errors.proyecto}
           />
 
           <TextField
-            label="url"
+            label="URL"
             name="url"
             value={plataforma.url}
             onChange={handleInputChange}
             margin="normal"
+            fullWidth
+            error={!!errors.url}
+            helperText={errors.url}
           />
 
           <TextField
-            label="alcance"
+            label="Alcance"
             name="alcance"
             value={plataforma.alcance}
             onChange={handleInputChange}
             margin="normal"
+            fullWidth
+            error={Boolean(errors.alcance)}
+            helperText={errors.alcance}
           />
         
         

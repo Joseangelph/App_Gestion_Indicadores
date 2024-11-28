@@ -40,21 +40,21 @@ function AsideMenuAdmin() {
                     {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarIndicadores" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <FaClipboardList className="mr-3" />
-                            Gestionar Indicadores
+                            Indicadores
                         </NavLink>
                     </li>)}
 
                     {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarCategorias" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <MdCategory className="mr-3" />
-                            Categorías de Análisis
+                            Categorías de análisis
                         </NavLink>
                     </li>)}
 
                     {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarDestinos" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
                             <IoIosCreate className="mr-3" />
-                            Destinos de Impacto
+                            Destinos de impacto
                         </NavLink>
                     </li>)}
 
@@ -82,14 +82,14 @@ function AsideMenuAdmin() {
                     <li>
                         <NavLink to="/gestionarEvaluacionesPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaClipboardList className="mr-3" />
-                            Evaluaciones de Plataformas
+                            Evaluaciones de plataformas
                         </NavLink>
                     </li>
 
                     <li>
                         <NavLink to="/gestionarPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
                             <FaClipboardList className="mr-3" />
-                            Plataformas Tecnológicas
+                            Plataformas tecnológicas
                         </NavLink>
                     </li>
 

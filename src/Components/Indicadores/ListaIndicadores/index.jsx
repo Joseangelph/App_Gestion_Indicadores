@@ -123,6 +123,7 @@ const ListaIndicadores = () => {
               >
                 <FaPenToSquare />
               </Button>
+
               {/* <Button
                 variant="contained"
                 color="error"
@@ -131,6 +132,7 @@ const ListaIndicadores = () => {
               >
                 <DeleteIcon />
               </Button> */}
+
             </Box>
           ),
         },

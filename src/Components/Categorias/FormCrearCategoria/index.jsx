@@ -65,12 +65,12 @@ const FormCrearCategoria = () => {
         className="text-2xl font-bold text-blue-600 pb-3"
         sx={{ fontFamily: 'Roboto, sans-serif' }}
       >
-        Registrar Categoría de análisis
+        Registrar categoría de análisis
       </Typography>
       
-      <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
+      <form onSubmit={handleSubmit} className="w-full min-w-xs p-1">
         <TextField
-          label="nombre"
+          label="Nombre"
           name="nombre"
           value={formData.nombre}
           onChange={handleChange}
@@ -82,7 +82,7 @@ const FormCrearCategoria = () => {
         />
         
         <TextField
-          label="concepto"
+          label="Concepto"
           name="concepto"
           value={formData.concepto}
           onChange={handleChange}
@@ -91,6 +91,8 @@ const FormCrearCategoria = () => {
           variant="outlined"
           error={Boolean(errors.concepto)}
           helperText={errors.concepto}
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
         />
         
         <Box mt={2} className="flex items-center justify-between">
@@ -100,7 +102,7 @@ const FormCrearCategoria = () => {
             type="submit"
             fullWidth
           >
-            Crear categoría de análisis
+            Crear
           </Button>
 
           <Button
@@ -108,6 +110,7 @@ const FormCrearCategoria = () => {
           color="secondary"
           onClick={() => navegar('/gestionarCategorias')}
           style={{ marginLeft: '10px' }}
+          fullWidth
         >
           Cancelar
         </Button>

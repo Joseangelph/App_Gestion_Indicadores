@@ -123,7 +123,7 @@ return (
         className="text-2xl font-bold text-blue-600 pb-3"
         sx={{ fontFamily: 'Roboto, sans-serif' }}
       >
-        Registrar Dimensiones
+        Registrar dimensiones
       </Typography>
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
@@ -147,6 +147,8 @@ return (
           fullWidth
           margin="normal"
           variant="outlined"
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
           error={Boolean(errors.concepto)}
           helperText={errors.concepto}
         />
@@ -224,12 +226,13 @@ return (
             type="submit"
             fullWidth
           >
-            Crear Dimensión
+            Crear
           </Button>
 
           <Button
           variant="outlined"
           color="secondary"
+          fullWidth
           onClick={() => navegar('/gestionarDimensiones')}
           style={{ marginLeft: '10px' }}
         >

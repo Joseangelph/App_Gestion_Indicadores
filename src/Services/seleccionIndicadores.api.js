@@ -19,3 +19,10 @@ export const getSeleccionesIndicadores = (token) => axios.get('http://localhost:
       Authorization: `Bearer ${token}`,
     },
 });
+
+
+export const getPlataformaByEvaluacion = (evaluacionId, token) => {
+  return axios.get(`http://localhost:8000/gestion_evaluaciones/plataforma-por-evaluacion/${evaluacionId}/`, {
+      headers: { Authorization: `Bearer ${token}` },
+  });
+};

@@ -95,7 +95,7 @@ const ListaDestinos = () => {
           />
         )},
         {field: 'nombre', headerName: 'Nombre', width: 350, editable: true},
-        { field: 'categoria_analisis_nombre', headerName: 'Categoría', width: 350, editable: false }, // Cambiado aquí
+        { field: 'categoria_analisis_nombre', headerName: 'Categoría de análisis', width: 350, editable: false }, // Cambiado aquí
         {
           field: 'actions',
           headerName: 'Acciones',

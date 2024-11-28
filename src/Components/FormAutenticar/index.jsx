@@ -29,6 +29,7 @@ const FormAutenticar = () => {
       const first_name= response.data.first_name;
       const last_name= response.data.last_name;
       const nombreUsuario= response.data.username;
+      const id= response.data.id;
 
       const usuario = decodeToken(tokenAccess).username;
 
@@ -46,7 +47,8 @@ const FormAutenticar = () => {
                 last_name,
                 role,
                 tokenAccess,
-                tokenRefresh
+                tokenRefresh,
+                id
             }
         }
 

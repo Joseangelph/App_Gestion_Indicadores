@@ -55,10 +55,9 @@ function GestionarEvaluacionesIndicadores() {
                 }
             );
             if (response.status === 201) {
-                // Actualiza el estado de la evaluación de plataforma a "evaluada"
-                await axios.patch(`http://localhost:8000/gestion_evaluaciones/api/evaluacionesplataformas/${id}/`, {
-                    estado: 'evaluada'
-                }, {
+                // Actualiza el estado y fecha de la evaluacion de plataforma
+                await axios.patch(`http://localhost:8000/gestion_evaluaciones/api/evaluacionesplataformas/${id}/finalizar_evaluacion/`, {},
+                {
                     headers: {
                         Authorization: `Bearer ${usuario.tokenAccess}`
                     }

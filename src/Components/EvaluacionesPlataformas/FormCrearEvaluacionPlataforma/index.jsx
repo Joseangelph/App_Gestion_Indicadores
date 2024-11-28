@@ -15,6 +15,8 @@ const FormCrearEvaluacionPlataforma = () => {
   const { usuario } = useContext(AuthContext);
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
   const [plataformas, setPlataformas] = useState([]); // Estado para almacenar plataformas
+  const [errors, setErrors] = useState({}); // Estado para los errores
+  const plataformasHabilitadas = plataformas.filter(plataforma => plataforma.habilitado);
 
   const navegar= useNavigate();
 
@@ -33,6 +35,19 @@ const FormCrearEvaluacionPlataforma = () => {
   }, [usuario.tokenAccess]);
 
 
+  const validateForm = () => {
+    const tempErrors = {};
+
+    if (!formData.plataforma) {
+      tempErrors.plataforma = "Debe seleccionar una plataforma";
+    } 
+    
+    if (!formData.objetivo.trim()) tempErrors.objetivo = "El campo 'objetivo' es obligatorio.";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -41,13 +56,15 @@ const FormCrearEvaluacionPlataforma = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await createEvaluacionPlataforma(formData,usuario.tokenAccess)
-      setOpenDialog(true); // Abre el diálogo de éxito
-      return response.data;
-    } catch (error) {
-      console.error('Error en el registro:', error);
+      e.preventDefault();
+      if (validateForm()) {
+        try {
+          const response = await createEvaluacionPlataforma(formData,usuario.tokenAccess)
+          setOpenDialog(true); // Abre el diálogo de éxito
+          return response.data;
+        } catch (error) {
+          console.error('Error en el registro:', error);
+        }
     }
   };
 
@@ -79,13 +96,19 @@ const FormCrearEvaluacionPlataforma = () => {
             onChange={handleChange}
             label="Plataforma"
           >
-            {plataformas.map((plataforma) => (
+            {plataformasHabilitadas.map((plataforma) => (
               <MenuItem key={plataforma.id} value={plataforma.id}>
                 {plataforma.nombre}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
+
+        {errors.plataforma && (
+          <Typography color="error" variant="body2">
+            {errors.plataforma}
+          </Typography>
+        )}
         
         <TextField
           label="Objetivo"
@@ -97,6 +120,8 @@ const FormCrearEvaluacionPlataforma = () => {
           variant="outlined"
           multiline // Convierte el TextField en un textarea
           rows={4} // Número de filas visibles iniciales
+          error={Boolean(errors.objetivo)}
+          helperText={errors.objetivo}
         />
         
         <Box mt={2} className="flex items-center justify-between">

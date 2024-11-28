@@ -8,6 +8,7 @@ import { AuthContext } from '../../../Context/AuthContext';
 const FormCrearUsuario = () => {
   const [formData, setFormData] = useState({username: '',password: '',first_name: '',last_name: '',role: ''});
   const { usuario } = useContext(AuthContext);
+  const [usernameError, setUsernameError] = useState(''); // Estado para el error del nombre de usuario
   const [passwordError, setPasswordError] = useState(false); // Estado para manejar el error de la contraseña
   const navegar= useNavigate();
   const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
@@ -23,9 +24,18 @@ const FormCrearUsuario = () => {
             return response.data;
         } 
         catch (error) {
-            alert("Error al registrar el usuario")
-            console.error('Error al registrar el usuario:', error);
-            throw error;
+          if (error.response && error.response.data) {
+            if (error.response.data.username) {
+              // Captura el error de nombre de usuario duplicado
+              setUsernameError(error.response.data.username[0]);
+            } else {
+              alert(error.response.data.detail || "Error al registrar el usuario");
+            }
+          } else {
+            alert("Error al registrar el usuario");
+          }
+          console.error('Error al registrar el usuario:', error);
+          throw error;
         }
     }
 
@@ -34,6 +44,9 @@ const FormCrearUsuario = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    if (e.target.name === 'username') {
+      setUsernameError(''); // Limpiar el error cuando el usuario escribe
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -60,7 +73,7 @@ const FormCrearUsuario = () => {
   return (
 <Box className="form-container flex flex-col items-center justify-center mt-10 w-1/2 rounded-lg">
       <Typography variant="h4" className="text-2xl font-bold text-blue-600 pb-3" sx={{ fontFamily: 'Roboto, sans-serif' }}>
-        Registrar Usuario
+        Registrar usuario
       </Typography>
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
@@ -72,6 +85,8 @@ const FormCrearUsuario = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          error={!!usernameError} // Mostrar error si existe
+          helperText={usernameError} // Mostrar mensaje de error personalizado
         />
         
         <TextField

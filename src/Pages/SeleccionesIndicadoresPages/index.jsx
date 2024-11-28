@@ -9,13 +9,13 @@ function GestionarSeleccionesIndicadores() {
     return (
         <Layout>
           <div className="flex flex-col justify-center items-center">
-            <Typography 
+            {/* <Typography 
               variant="h4" 
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
               Seleccionar indicadores para la plataforma tecnológica
-            </Typography>
+            </Typography> */}
             <div>
               <SeleccionarIndicadores/>
             </div>

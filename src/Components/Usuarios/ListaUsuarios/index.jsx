@@ -13,15 +13,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FaPenToSquare } from "react-icons/fa6";
 import { AuthContext } from '../../../Context/AuthContext';
+import { Typography} from '@mui/material';
 
 const ListaUsuarios = () => {
-    const [userList,setUserList]= useState([])
     const { usuario } = useContext(AuthContext);
+    const [userList,setUserList]= useState([])
+    const [openDialog, setOpenDialog] = useState(false); // Estado para controlar si el diálogo está abierto o cerrado
+    const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el ID del usuario seleccionado para eliminar
+    const [errors, setErrors] = useState({}); // Estado para los errores 
     const navegar = useNavigate();
 
-    const [openDialog, setOpenDialog] = useState(false); // Estado para controlar si el diálogo está abierto o cerrado
-const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el ID del usuario seleccionado para eliminar
-    
     useEffect(() => {
         async function loadUsers(){
             const response= await getAllUsers(usuario.tokenAccess);
@@ -31,25 +32,31 @@ const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el
 
     }, [usuario.tokenAccess])
 
-    const handleDelete = async () => {
 
-      try {
-        const response = await deleteUser(selectedId,usuario.tokenAccess);
-        if (response.status === 204) {
-          // Si la eliminación fue exitosa, actualiza la lista de usuarios
-          setUserList(userList.filter(user => user.id !== selectedId));
-          console.log('Usuario eliminado exitosamente');
-        } else {
-          console.error('Error al eliminar el usuario');
-        }
-        setOpenDialog(false); // Cierra el diálogo después de eliminar
-      } catch (error) {
-        console.error('Error al conectar con la API', error);
-        setOpenDialog(false); // Cierra el diálogo si hay error
-      }
+    const handleDelete = async () => {
+        try {
+          const response = await deleteUser(selectedId,usuario.tokenAccess);
+          if (response.status === 204) {
+            // Si la eliminación fue exitosa, actualiza la lista de usuarios
+            setUserList(userList.filter(user => user.id !== selectedId));
+            console.log('Usuario eliminado exitosamente');
+          } else {
+            console.error('Error al eliminar el usuario');
+          }
+          setOpenDialog(false); // Cierra el diálogo después de eliminar
+        } catch (error) {
+          console.error('Error al conectar con la API', error);
+          setOpenDialog(false); // Cierra el diálogo si hay error
+        }  
     };
 
+
     const handleOpenDialog = (id) => {
+      if (id === usuario.id) {
+        // Si el usuario seleccionado es el mismo que el autenticado, evita eliminar
+        setErrors({ message: 'No puedes eliminar tu propia cuenta.' });
+        return;
+      }
       setSelectedId(id);  // Guarda el ID del usuario seleccionado
       setOpenDialog(true); // Abre el diálogo de confirmación
     };
@@ -104,6 +111,13 @@ const [selectedId, setSelectedId] = useState(null);  // Estado para almacenar el
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
+
+      {errors.message && (
+        <Typography color="error" variant="body1" sx={{ mb: 2, ml: 2 }}>
+          {errors.message}
+        </Typography>
+      )}
+
       <DataGrid
         rows={rows}
         columns={columns}

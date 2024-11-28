@@ -114,6 +114,8 @@ const FormCrearSubdimension = () => {
           variant="outlined"
           error={Boolean(errors.concepto)}
           helperText={errors.concepto}
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
         />
 
         {/* Select para elegir la dimension */}
@@ -146,7 +148,7 @@ const FormCrearSubdimension = () => {
             type="submit"
             fullWidth
           >
-            Crear Subdimensión
+            Crear
           </Button>
 
           <Button
@@ -154,6 +156,7 @@ const FormCrearSubdimension = () => {
           color="secondary"
           onClick={() => navegar('/gestionarSubdimensiones')}
           style={{ marginLeft: '10px' }}
+          fullWidth
         >
           Cancelar
         </Button>

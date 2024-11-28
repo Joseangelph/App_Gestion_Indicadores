@@ -78,6 +78,7 @@ const FormCrearIndicador = () => {
     fetchDimensiones();
   }, [usuario.tokenAccess]);
 
+  
   const validateForm = () => {
     const nombreRegex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/; // Solo letras y espacios permitidos
     const tempErrors = {};
@@ -162,7 +163,7 @@ const FormCrearIndicador = () => {
         </Box>
         
         <TextField
-          label="concepto"
+          label="Concepto"
           name="concepto"
           value={formData.concepto}
           onChange={handleChange}
@@ -172,7 +173,7 @@ const FormCrearIndicador = () => {
           multiline // Convierte el TextField en un textarea
           rows={4} // Número de filas visibles iniciales
           error={Boolean(errors.concepto)}
-          helperText={errors.nombre}
+          helperText={errors.concepto}
         />
 
 

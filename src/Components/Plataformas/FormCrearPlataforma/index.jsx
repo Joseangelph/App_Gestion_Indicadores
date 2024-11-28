@@ -91,12 +91,12 @@ const FormCrearPlataforma = () => {
         className="text-2xl font-bold text-blue-600 pb-3"
         sx={{ fontFamily: 'Roboto, sans-serif' }}
       >
-        Registrar Plataforma Tecnológica
+        Registrar plataforma tecnológica
       </Typography>
       
-      <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
+      <form onSubmit={handleSubmit} className="w-full p-1">
         <TextField
-          label="nombre"
+          label="Nombre"
           name="nombre"
           value={formData.nombre}
           onChange={handleChange}
@@ -108,7 +108,7 @@ const FormCrearPlataforma = () => {
         />
         
         <TextField
-          label="descripcion"
+          label="Descripción"
           name="descripcion"
           value={formData.descripcion}
           onChange={handleChange}
@@ -117,10 +117,12 @@ const FormCrearPlataforma = () => {
           variant="outlined"
           error={Boolean(errors.descripcion)}
           helperText={errors.descripcion}
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
         />
 
         <TextField
-          label="proyecto"
+          label="Proyecto"
           name="proyecto"
           value={formData.proyecto}
           onChange={handleChange}
@@ -132,7 +134,7 @@ const FormCrearPlataforma = () => {
         />
 
         <TextField
-          label="url"
+          label="URL"
           name="url"
           value={formData.url}
           onChange={handleChange}
@@ -144,7 +146,7 @@ const FormCrearPlataforma = () => {
         />
 
         <TextField
-          label="alcance"
+          label="Alcance"
           name="alcance"
           value={formData.alcance}
           onChange={handleChange}
@@ -162,7 +164,7 @@ const FormCrearPlataforma = () => {
             type="submit"
             fullWidth
           >
-            Crear Plataforma Tecnológica
+            Crear
           </Button>
 
           <Button
@@ -170,6 +172,7 @@ const FormCrearPlataforma = () => {
           color="secondary"
           onClick={() => navegar('/gestionarPlataformas')}
           style={{ marginLeft: '10px' }}
+          fullWidth
         >
           Cancelar
         </Button>
@@ -178,7 +181,7 @@ const FormCrearPlataforma = () => {
 
       {/* Diálogo de confirmación */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{"Plataforma Tecnológica creada"}</DialogTitle>
+        <DialogTitle>{"Plataforma tecnológica creada"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             La plataforma tecnológica ha sido creado exitosamente.

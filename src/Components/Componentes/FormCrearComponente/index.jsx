@@ -70,7 +70,7 @@ const FormCrearComponente = () => {
     }
     
     if (!formData.concepto.trim()) tempErrors.concepto = "El campo 'concepto' es obligatorio.";
-    if (!formData.categoria_analisis) {
+    if (!formData.destino_impacto) {
       tempErrors.selects = "Debe seleccionar un destino de impacto.";
     }
     setErrors(tempErrors);
@@ -92,12 +92,12 @@ const FormCrearComponente = () => {
         className="text-2xl font-bold text-blue-600 pb-3"
         sx={{ fontFamily: 'Roboto, sans-serif' }}
       >
-        Registrar Componentes
+        Registrar componentes
       </Typography>
       
       <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
         <TextField
-          label="nombre"
+          label="Nombre"
           name="nombre"
           value={formData.nombre}
           onChange={handleChange}
@@ -109,7 +109,7 @@ const FormCrearComponente = () => {
         />
         
         <TextField
-          label="concepto"
+          label="Concepto"
           name="concepto"
           value={formData.concepto}
           onChange={handleChange}
@@ -118,6 +118,8 @@ const FormCrearComponente = () => {
           variant="outlined"
           error={Boolean(errors.concepto)}
           helperText={errors.concepto}
+          multiline // Convierte el TextField en un textarea
+          rows={4} // Número de filas visibles iniciales
         />
 
         {/* Select para elegir el destino de impacto */}
@@ -169,7 +171,7 @@ const FormCrearComponente = () => {
         <DialogTitle>{"Componente creado"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            El Componente ha sido creado exitosamente.
+            El componente ha sido creado exitosamente.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

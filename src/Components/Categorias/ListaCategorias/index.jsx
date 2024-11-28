@@ -1,10 +1,9 @@
 
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-// import CardUsuario from '../CardUsuario'
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -48,7 +47,7 @@ const ListaCategoria = () => {
       } catch (error) {
           console.error('Error al alternar el estado:', error);
       }
-  };
+    };
 
     const handleDelete = async () => {
       try {
@@ -67,10 +66,12 @@ const ListaCategoria = () => {
       }
     };
 
+
     // const handleOpenDialog = (id) => {
     //   setSelectedId(id); // Guarda el ID de la categoria a eliminar
     //   setOpenDialog(true); // Abre el diálogo
     // };
+
 
     // Función para manejar la edición de la categoria
     const handleEdit = (id) => {

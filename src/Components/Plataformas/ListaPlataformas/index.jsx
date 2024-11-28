@@ -10,11 +10,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Switch from '@mui/material/Switch';
 import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
 import { deletePlataforma, getPlataformas } from '../../../Services/plataformas.api';
+import { toggleHabilitado } from '../../../Services/toggleHabilitado.api';
 
 
 const ListaPlataforma = () => {
@@ -35,6 +37,7 @@ const ListaPlataforma = () => {
 
     }, [usuario.tokenAccess])
 
+
     const handleDelete = async () => {
       try {
         const response = await deletePlataforma(selectedId,usuario.tokenAccess);
@@ -52,30 +55,60 @@ const ListaPlataforma = () => {
       }
     };
 
+
     const handleOpenDialog = (id) => {
       setSelectedId(id); // Guarda el ID del indicador a eliminar
       setOpenDialog(true); // Abre el diálogo
     };
+
 
     // Función para manejar la edición de la Plataforma
     const handleEdit = (id) => {
       navegar(`/editarPlataformas/${id}`); // Redirigir a la página de edición con el ID de la Plataforma
     };
 
+
     const handleShow = (id) => {
       navegar(`/mostrarPlataformas/${id}`); // Redirigir a la página de mostrar con el ID de la plataforma
     };
+    
 
     const handleCloseDialog = () => {
       setOpenDialog(false); // Cierra el diálogo sin eliminar
       setSelectedId(null); // Limpia el ID seleccionado
     };
 
+
+    const handleToggleHabilitado = async (id) => {
+      try {
+          const response = await toggleHabilitado('plataforma', id, usuario.tokenAccess);
+          const updatedPlataformas = plataformaList.map((plataforma) =>
+              plataforma.id === id ? { ...plataforma, habilitado: response.data.habilitado } : plataforma
+          );
+          setPlataformaList(updatedPlataformas);
+      } catch (error) {
+          console.error('Error al alternar el estado:', error);
+      }
+    };
+    
+
     const columns = [
+        {
+          field: 'habilitado',
+          headerName: 'Habilitado',
+          width: 100,
+          renderCell: (params) => (
+              <Switch
+                  checked={params.row.habilitado}
+                  onChange={() => handleToggleHabilitado(params.row.id)}
+                  color="primary"
+              />
+          ),
+        },
         {field: 'nombre', headerName: 'Nombre', width: 200, editable: true},
-        {field: 'proyecto', headerName: 'proyecto', width: 200, editable: true,},
-        {field: 'url', headerName: 'url', width: 200, editable: true,},
-        {field: 'alcance', headerName: 'alcance', width: 200, editable: true,},
+        {field: 'proyecto', headerName: 'Proyecto', width: 200, editable: true,},
+        {field: 'url', headerName: 'URL', width: 200, editable: true,},
+        {field: 'alcance', headerName: 'Alcance', width: 200, editable: true,},
         {
           field: 'actions',
           headerName: 'Acciones',

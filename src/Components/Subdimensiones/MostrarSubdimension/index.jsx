@@ -41,7 +41,7 @@ const MostrarSubdimension = () => {
         className="text-4xl font-bold text-blue-600"
         sx={{ fontFamily: 'Roboto, sans-serif', marginBottom: 3 }}
       >
-        Detalles de la Subdimensión
+        Detalles de la subdimensión
       </Typography>
 
       <Paper elevation={3} sx={{ padding: 4, maxWidth: 600, width: '100%' }}>

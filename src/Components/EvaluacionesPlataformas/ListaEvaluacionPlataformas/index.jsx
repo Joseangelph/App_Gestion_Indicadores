@@ -6,7 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { BiSolidDetail } from "react-icons/bi";
-
+import { format } from 'date-fns';
 import { AuthContext } from '../../../Context/AuthContext';
 import { deleteEvaluacionPlataforma,getEvaluacionPlataformas } from '../../../Services/evaluacionPlataformas.api';
 
@@ -57,12 +57,19 @@ const ListaEvaluacionPlataforma = () => {
     };
 
     const columns = [
-        {field: 'plataforma_nombre', headerName: 'Plataforma', width: 300, editable: true},
+        {field: 'plataforma_nombre', headerName: 'Plataforma', width: 280, editable: true},
         {field: 'estado', headerName: 'Estado', width: 200, editable: true},
+        {
+          field: 'fecha_evaluada',
+          headerName: 'Fecha de finalización',
+          width: 200,
+          editable: false,
+          valueFormatter: (params) => params.value // Valor predeterminado si no tiene fecha
+        },
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 350,
+          width: 300,
           renderCell: (params) => {
             const isPendienteEvaluacion = params.row.estado === 'pendiente a evaluar';
             const isPendienteSeleccion = params.row.estado === 'pendiente a selección';
@@ -91,7 +98,7 @@ const ListaEvaluacionPlataforma = () => {
                       <Button
                           variant="contained"
                           color="primary"
-                          sx={{ minWidth: '30px', maxHeight: "30px", padding: '8px' }}
+                          sx={{ minWidth: '30px', margin:'5px', maxHeight: "30px", padding: '8px' }}
                           onClick={() => handleEvaluarIndicadores(params.row.id)}
                           style={{ marginRight: 10 }}
                       >
@@ -119,7 +126,10 @@ const ListaEvaluacionPlataforma = () => {
 
     const rows = evaluacionPlataformaList.map((evaluacionPlataforma) => ({ 
       ...evaluacionPlataforma,
-      id: evaluacionPlataforma.id 
+      id: evaluacionPlataforma.id,
+      fecha_evaluada: evaluacionPlataforma.fecha_evaluada
+      ? format(new Date(evaluacionPlataforma.fecha_evaluada), 'dd/MM/yyyy HH:mm:ss') // Formatear la fecha
+      : "", // Si no hay fecha, dejarla como null 
     }));
 
     return (
