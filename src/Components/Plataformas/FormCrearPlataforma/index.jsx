@@ -72,7 +72,7 @@ const FormCrearPlataforma = () => {
     }
 
     //Validación del campo 'alcance'
-    if (!formData.alcance.trim()) tempErrors.alcance = "El campo 'alcance' es obligatorio.";
+    if (!formData.alcance) tempErrors.alcance = "Debe seleccionar un alcance.";
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0; // Retorna true si no hay errores
@@ -145,7 +145,7 @@ const FormCrearPlataforma = () => {
           helperText={errors.url}
         />
 
-        <TextField
+        {/* <TextField
           label="Alcance"
           name="alcance"
           value={formData.alcance}
@@ -155,7 +155,31 @@ const FormCrearPlataforma = () => {
           variant="outlined"
           error={Boolean(errors.alcance)}
           helperText={errors.alcance}
-        />
+        /> */}
+
+        <FormControl fullWidth margin="normal" variant="outlined">
+          <InputLabel id="tipo-label">Alcance</InputLabel>
+          <Select
+            labelId="alcance-label"
+            id="alcance"
+            name="alcance"
+            value={formData.alcance}
+            onChange={handleChange}
+            label="Alcance"
+          >
+            <MenuItem value="">
+              <em>Selecciona el alcance</em>
+            </MenuItem>
+            <MenuItem value="nacional">Nacional</MenuItem>
+            <MenuItem value="provincial">Provincial</MenuItem>
+            <MenuItem value="municipal">Municipal</MenuItem>
+          </Select>
+          {errors.alcance && (
+            <Typography color="error" variant="body2">
+              {errors.alcance}
+            </Typography>
+          )}
+        </FormControl>
         
         <Box mt={2} className="flex items-center justify-between">
           <Button 

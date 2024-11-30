@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { AuthContext } from '../../../Context/AuthContext';
 import { getIndicadores } from '../../../Services/indicadores.api';
 import { createSeleccionIndicadores, getPlataformaByEvaluacion } from '../../../Services/seleccionIndicadores.api';
-import { Box, Button, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+import { Box, Button, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextareaAutosize
   } from '@mui/material';
 
 const SeleccionarIndicadores = () => {
@@ -80,18 +80,17 @@ const SeleccionarIndicadores = () => {
 
     return (
 
-        <Box sx={{ padding: 3 }}>
+        <Box sx={{ padding: 2 }}>
             {/* Mostrar datos de la plataforma tecnológica */}
             {plataforma && (
                 <Box
                     sx={{
-                        marginBottom: 3,
                         padding: 2,
                         border: '1px solid #ccc',
                         borderRadius: 2,
                         display: 'grid',
                         gridTemplateColumns: 'repeat(2, 1fr)', // Dos columnas
-                        gap: 2,
+                        gap: 1,
                     }}
                 >
                     {/* Primera fila: Nombre y Proyecto */}
@@ -107,15 +106,32 @@ const SeleccionarIndicadores = () => {
                     </Typography>
                     <Typography><strong>Alcance:</strong> {plataforma.alcance}</Typography>
 
-                    {/* Tercera fila: Descripción */}
-                    <Typography sx={{ gridColumn: 'span 2' }}>
-                        <strong>Descripción:</strong> {plataforma.descripcion}
-                    </Typography>
+                    
+                    <Box>
+                        <Typography   gutterBottom>
+                        <strong> Descripción: </strong>
+                        </Typography>
+                        <TextareaAutosize
+                        value={plataforma.descripcion}
+                        minRows={3}
+                        readOnly
+                        style={{
+                            width: '200%',
+                            resize: 'none',
+                            fontFamily: 'Roboto, sans-serif',
+                            fontSize: '16px',
+                            borderRadius: '5px',
+                            border: '2px solid rgba(0, 0, 0, 0.40)',
+                            backgroundColor: '#ffffff',
+                        }}
+                        />
+                    </Box>
+                    
                 </Box>
             )}
 
             {/* Tabla de indicadores */}
-            <Box sx={{ height: 350, width: '100%' }}>
+            <Box sx={{ height: 320, width: '100%' }}>
                 <DataGrid
                     rows={rows}
                     columns={columns}

@@ -75,7 +75,7 @@ const FormCrearEvaluacionPlataforma = () => {
 
   return (
     
-<Box className="form-container flex flex-col items-center justify-center mt-10 w-1/2 rounded-lg">
+<Box className="form-container flex flex-col items-center justify-center mt-10 rounded-lg">
       <Typography
         variant="h4"
         className="text-2xl font-bold text-blue-600 pb-3"
@@ -84,7 +84,7 @@ const FormCrearEvaluacionPlataforma = () => {
         Registrar evaluación de plataforma
       </Typography>
       
-      <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
+      <form onSubmit={handleSubmit} className="w-full p-1">
         
         {/* Select para elegir la plataforma */}
         <FormControl fullWidth margin="normal" variant="outlined">
@@ -131,7 +131,7 @@ const FormCrearEvaluacionPlataforma = () => {
             type="submit"
             fullWidth
           >
-            Crear evaluación de plataforma
+            Crear
           </Button>
 
           <Button
@@ -139,6 +139,7 @@ const FormCrearEvaluacionPlataforma = () => {
           color="secondary"
           onClick={() => navegar('/gestionarEvaluacionesPlataformas')}
           style={{ marginLeft: '10px' }}
+          fullWidth
         >
           Cancelar
         </Button>

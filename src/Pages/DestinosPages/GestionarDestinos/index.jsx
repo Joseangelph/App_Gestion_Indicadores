@@ -17,7 +17,7 @@ function GestionarDestinos() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar destinos de impacto
+              Administrar destinos de impacto
             </Typography>
             <div className=" flex justify-between mt-5 mb-5">
               <Button onClick={()=>navegar('/crearDestinos')} variant="contained">Crear destinos de impacto</Button>

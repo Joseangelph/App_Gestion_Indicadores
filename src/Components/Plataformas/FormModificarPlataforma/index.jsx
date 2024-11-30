@@ -1,11 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';  // Obtener el parámetro ID de la URL
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl} from '@mui/material';
 import { AuthContext } from '../../../Context/AuthContext';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+
+
 
 
 const EditarPlataforma = () => {
@@ -90,7 +89,7 @@ const EditarPlataforma = () => {
     }
 
     //Validación del campo 'alcance'
-    if (!plataforma.alcance.trim()) tempErrors.alcance = "El campo 'alcance' es obligatorio.";
+    if (!plataforma.alcance) tempErrors.alcance = "Debe seleccionar un alcance.";
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0; // Retorna true si no hay errores
@@ -155,16 +154,29 @@ const EditarPlataforma = () => {
             helperText={errors.url}
           />
 
-          <TextField
-            label="Alcance"
-            name="alcance"
-            value={plataforma.alcance}
-            onChange={handleInputChange}
-            margin="normal"
-            fullWidth
-            error={Boolean(errors.alcance)}
-            helperText={errors.alcance}
-          />
+          <FormControl fullWidth margin="normal" variant="outlined">
+            <InputLabel id="tipo-label">Alcance</InputLabel>
+            <Select
+              labelId="alcance-label"
+              id="alcance"
+              name="alcance"
+              value={plataforma.alcance}
+              onChange={handleInputChange}
+              label="Alcance"
+            >
+              <MenuItem value="">
+                <em>Selecciona el alcance</em>
+              </MenuItem>
+              <MenuItem value="nacional">Nacional</MenuItem>
+              <MenuItem value="provincial">Provincial</MenuItem>
+              <MenuItem value="municipal">Municipal</MenuItem>
+            </Select>
+            {errors.alcance && (
+              <Typography color="error" variant="body2">
+                {errors.alcance}
+              </Typography>
+            )}
+          </FormControl>
         
         
           <Box mt={2}>

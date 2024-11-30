@@ -1,9 +1,13 @@
 import { useContext } from 'react'
 import { NavLink } from "react-router-dom";
-import { FaHome, FaUserFriends, FaClipboardList, FaLayerGroup } from "react-icons/fa";
+import { FaHome, FaUserFriends, FaClipboardList, FaBookOpen, FaLayerGroup } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
-import { MdCategory } from "react-icons/md";
+import { MdCategory, MdOutlineAssessment } from "react-icons/md";
+import { HiOutlineBuildingOffice } from "react-icons/hi2"; // Plataformas tecnológicas
+import { RiSurveyLine } from "react-icons/ri"; // Dimensiones y Subdimensiones
+import { BiSolidCategory } from "react-icons/bi";
 import { AuthContext } from '../../Context/AuthContext';
+
 import './styles.css';
 
 function AsideMenuAdmin() {
@@ -38,22 +42,15 @@ function AsideMenuAdmin() {
                     </li>)}
 
                     {(isAdmin||isExpert)&&(<li>
-                        <NavLink to="/gestionarIndicadores" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
-                            <FaClipboardList className="mr-3" />
-                            Indicadores
-                        </NavLink>
-                    </li>)}
-
-                    {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarCategorias" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
-                            <MdCategory className="mr-3" />
+                            <BiSolidCategory className="mr-3" />
                             Categorías de análisis
                         </NavLink>
                     </li>)}
 
                     {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarDestinos" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
-                            <IoIosCreate className="mr-3" />
+                            <FaBookOpen className="mr-3" />
                             Destinos de impacto
                         </NavLink>
                     </li>)}
@@ -67,29 +64,39 @@ function AsideMenuAdmin() {
 
                     {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarDimensiones" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
-                            <FaLayerGroup className="mr-3" />
+                            <RiSurveyLine className="mr-3" />
                             Dimensiones
                         </NavLink>
                     </li>)}
 
                     {(isAdmin||isExpert)&&(<li>
                         <NavLink to="/gestionarSubdimensiones" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
-                            <FaLayerGroup className="mr-3" />
+                            <RiSurveyLine className="mr-3" />
                             Subdimensiones
                         </NavLink>
                     </li>)}
 
-                    <li>
-                        <NavLink to="/gestionarEvaluacionesPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
-                            <FaClipboardList className="mr-3" />
-                            Evaluaciones de plataformas
+
+                    {(isAdmin||isExpert)&&(<li>
+                        <NavLink to="/gestionarIndicadores" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-green-900"}`}>
+                            <MdOutlineAssessment className="mr-3" />
+                            Indicadores
                         </NavLink>
-                    </li>
+                    </li>)}
+
+
+                    {(isClient||isAdmin)&&(<li>
+                        <NavLink to="/gestionarPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <HiOutlineBuildingOffice className="mr-3" />
+                            Plataformas tecnológicas
+                        </NavLink>
+                    </li>)}
+
 
                     <li>
-                        <NavLink to="/gestionarPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
-                            <FaClipboardList className="mr-3" />
-                            Plataformas tecnológicas
+                        <NavLink to="/gestionarEvaluacionesPlataformas" className={({ isActive }) => `flex items-center px-4 py-2 ${isActive ? activeStyle : "hover:bg-sky-700"}`}>
+                            <MdOutlineAssessment className="mr-3" />
+                            Evaluaciones de plataformas
                         </NavLink>
                     </li>
 

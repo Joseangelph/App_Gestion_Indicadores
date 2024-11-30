@@ -8,12 +8,14 @@ import Button from '@mui/material/Button';
 import { BiSolidDetail } from "react-icons/bi";
 import { format } from 'date-fns';
 import { AuthContext } from '../../../Context/AuthContext';
-import { deleteEvaluacionPlataforma,getEvaluacionPlataformas } from '../../../Services/evaluacionPlataformas.api';
-
+// import { deleteEvaluacionPlataforma } from '../../../Services/evaluacionPlataformas.api';
+import {getEvaluacionPlataformas } from '../../../Services/evaluacionPlataformas.api';
 
 const ListaEvaluacionPlataforma = () => {
     const [evaluacionPlataformaList,setEvaluacionPlataformaList]= useState([])
     const { usuario } = useContext(AuthContext);
+    const isAdmin = usuario.role=== 'administrador';
+    const isExpert = usuario.role === 'experto';
     const navegar = useNavigate();
     // console.log(usuario)
 
@@ -28,20 +30,20 @@ const ListaEvaluacionPlataforma = () => {
 
 
 
-    const handleDelete = async (id) => {
-      try {
-        const response = await deleteEvaluacionPlataforma(id,usuario.tokenAccess);
-        if (response.status === 204) {
-          // Si la eliminación fue exitosa, actualiza la lista de indicadores
-          setEvaluacionPlataformaList(evaluacionPlataformaList.filter(evaluacionPlataforma => evaluacionPlataforma.id !== id));
-          console.log('Evaluacion de plataforma eliminada exitosamente');
-        } else {
-          console.error('Error al eliminar la dimension');
-        }
-      } catch (error) {
-        console.error('Error al conectar con la API', error);
-      }
-    };
+    // const handleDelete = async (id) => {
+    //   try {
+    //     const response = await deleteEvaluacionPlataforma(id,usuario.tokenAccess);
+    //     if (response.status === 204) {
+    //       // Si la eliminación fue exitosa, actualiza la lista de indicadores
+    //       setEvaluacionPlataformaList(evaluacionPlataformaList.filter(evaluacionPlataforma => evaluacionPlataforma.id !== id));
+    //       console.log('Evaluacion de plataforma eliminada exitosamente');
+    //     } else {
+    //       console.error('Error al eliminar la dimension');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error al conectar con la API', error);
+    //   }
+    // };
 
 
     const handleSelectIndicadores = (id) => {
@@ -60,31 +62,39 @@ const ListaEvaluacionPlataforma = () => {
         {field: 'plataforma_nombre', headerName: 'Plataforma', width: 280, editable: true},
         {field: 'estado', headerName: 'Estado', width: 200, editable: true},
         {
+          field: 'fecha_creacion',
+          headerName: 'Fecha de creación',
+          width: 170,
+          editable: false,
+          valueFormatter: (params) =>
+            params.value // Formatear fecha
+        },
+        {
           field: 'fecha_evaluada',
           headerName: 'Fecha de finalización',
-          width: 200,
+          width: 170,
           editable: false,
           valueFormatter: (params) => params.value // Valor predeterminado si no tiene fecha
         },
         {
           field: 'actions',
           headerName: 'Acciones',
-          width: 300,
+          width: 230,
           renderCell: (params) => {
             const isPendienteEvaluacion = params.row.estado === 'pendiente a evaluar';
             const isPendienteSeleccion = params.row.estado === 'pendiente a selección';
             const isEvaluada = params.row.estado === 'evaluada';
             return(
               <Box>
-                <Button
+                {/* <Button
                           variant="contained"
                           color="primary"
                           sx={{ minWidth: '30px', maxHeight: "30px", padding: '8px' }}
                           onClick={() => handleDelete(params.row.id)}
                       >
                           Eliminar
-                </Button>
-                  {isPendienteSeleccion && (
+                </Button> */}
+                  {isPendienteSeleccion && (isAdmin||isExpert) &&(
                       <Button
                           variant="contained"
                           color="primary"
@@ -94,7 +104,7 @@ const ListaEvaluacionPlataforma = () => {
                           Seleccionar Indicadores
                       </Button>
                   )} 
-                  {isPendienteEvaluacion && (
+                  {isPendienteEvaluacion && (isAdmin||isExpert) && (
                       <Button
                           variant="contained"
                           color="primary"
@@ -127,8 +137,13 @@ const ListaEvaluacionPlataforma = () => {
     const rows = evaluacionPlataformaList.map((evaluacionPlataforma) => ({ 
       ...evaluacionPlataforma,
       id: evaluacionPlataforma.id,
+
+      fecha_creacion: evaluacionPlataforma.fecha_creacion
+      ? format(new Date(evaluacionPlataforma.fecha_creacion), 'dd/MM/yyyy HH:mm:ss') // Formatear fecha
+      : "",
+
       fecha_evaluada: evaluacionPlataforma.fecha_evaluada
-      ? format(new Date(evaluacionPlataforma.fecha_evaluada), 'dd/MM/yyyy HH:mm:ss') // Formatear la fecha
+      ? format(new Date(evaluacionPlataforma.fecha_evaluada), 'dd/MM/yyyy HH:mm:ss')
       : "", // Si no hay fecha, dejarla como null 
     }));
 

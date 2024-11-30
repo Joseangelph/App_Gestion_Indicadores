@@ -3,19 +3,20 @@ import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
+// import DialogContent from '@mui/material/DialogContent';
+// import DialogContentText from '@mui/material/DialogContentText';
+// import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
 import { BiSolidDetail } from "react-icons/bi";
 import { FaPenToSquare } from "react-icons/fa6";
 
 import { AuthContext } from '../../../Context/AuthContext';
-import { deletePlataforma, getPlataformas } from '../../../Services/plataformas.api';
+import { getPlataformas } from '../../../Services/plataformas.api';
+// import { deletePlataforma } from '../../../Services/plataformas.api';
 import { toggleHabilitado } from '../../../Services/toggleHabilitado.api';
 
 
@@ -24,8 +25,8 @@ const ListaPlataforma = () => {
     const { usuario } = useContext(AuthContext);
     const navegar = useNavigate();
 
-    const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
-    const [selectedId, setSelectedId] = useState(null); // Estado para el ID del indicador a eliminar
+    // const [openDialog, setOpenDialog] = useState(false); // Estado para el diálogo
+    // const [selectedId, setSelectedId] = useState(null); // Estado para el ID del indicador a eliminar
     // console.log(usuario)
 
     useEffect(() => {
@@ -38,28 +39,28 @@ const ListaPlataforma = () => {
     }, [usuario.tokenAccess])
 
 
-    const handleDelete = async () => {
-      try {
-        const response = await deletePlataforma(selectedId,usuario.tokenAccess);
-        if (response.status === 204) {
-          // Si la eliminación fue exitosa, actualiza la lista de indicadores
-          setPlataformaList(plataformaList.filter(plataforma => plataforma.id !== selectedId));
-          console.log('Plataforma eliminada exitosamente');
-        } else {
-          console.error('Error al eliminar la Plataforma');
-        }
-        setOpenDialog(false); // Cierra el diálogo después de eliminar
-      } catch (error) {
-        console.error('Error al conectar con la API', error);
-        setOpenDialog(false); // Cierra el diálogo si hay error
-      }
-    };
+    // const handleDelete = async () => {
+    //   try {
+    //     const response = await deletePlataforma(selectedId,usuario.tokenAccess);
+    //     if (response.status === 204) {
+    //       // Si la eliminación fue exitosa, actualiza la lista de indicadores
+    //       setPlataformaList(plataformaList.filter(plataforma => plataforma.id !== selectedId));
+    //       console.log('Plataforma eliminada exitosamente');
+    //     } else {
+    //       console.error('Error al eliminar la Plataforma');
+    //     }
+    //     setOpenDialog(false); // Cierra el diálogo después de eliminar
+    //   } catch (error) {
+    //     console.error('Error al conectar con la API', error);
+    //     setOpenDialog(false); // Cierra el diálogo si hay error
+    //   }
+    // };
 
 
-    const handleOpenDialog = (id) => {
-      setSelectedId(id); // Guarda el ID del indicador a eliminar
-      setOpenDialog(true); // Abre el diálogo
-    };
+    // const handleOpenDialog = (id) => {
+    //   setSelectedId(id); // Guarda el ID del indicador a eliminar
+    //   setOpenDialog(true); // Abre el diálogo
+    // };
 
 
     // Función para manejar la edición de la Plataforma
@@ -73,10 +74,10 @@ const ListaPlataforma = () => {
     };
     
 
-    const handleCloseDialog = () => {
-      setOpenDialog(false); // Cierra el diálogo sin eliminar
-      setSelectedId(null); // Limpia el ID seleccionado
-    };
+    // const handleCloseDialog = () => {
+    //   setOpenDialog(false); // Cierra el diálogo sin eliminar
+    //   setSelectedId(null); // Limpia el ID seleccionado
+    // };
 
 
     const handleToggleHabilitado = async (id) => {
@@ -133,14 +134,15 @@ const ListaPlataforma = () => {
               >
                 <FaPenToSquare />
               </Button>
-              <Button
+
+              {/* <Button
                 variant="contained"
                 color="error"
                 sx={{ minWidth: '30px', maxHeight:"30px", padding: '8px' }}
                 onClick={() => handleOpenDialog(params.row.id)} // Abre el diálogo de confirmación
               >
                 <DeleteIcon />
-              </Button>
+              </Button> */}
             </Box>
           ),
         },
@@ -164,7 +166,7 @@ const ListaPlataforma = () => {
       />
 
       {/* Diálogo de confirmación */}
-      <Dialog
+      {/* <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
       >
@@ -182,7 +184,7 @@ const ListaPlataforma = () => {
             Eliminar
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
   </Box>
 
     )

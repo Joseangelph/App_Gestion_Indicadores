@@ -125,6 +125,7 @@ const ListaCategoria = () => {
               >
                 <FaPenToSquare />
               </Button>
+
               {/* <Button
                 variant="contained"
                 color="error"
@@ -133,6 +134,7 @@ const ListaCategoria = () => {
               >
                 <DeleteIcon />
               </Button> */}
+
             </Box>
           ),
         },

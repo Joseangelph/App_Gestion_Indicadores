@@ -18,7 +18,7 @@ function GestionarCategorias() {
               className="text-4xl font-bold text-blue-600 text-center "
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar categorías de análisis
+              Administrar categorías de análisis
             </Typography>
             <div className=" flex justify-center mt-5 mb-2">
               <Button onClick={()=>navegar('/crearCategorias')} variant="contained">Crear categorías de análisis</Button>

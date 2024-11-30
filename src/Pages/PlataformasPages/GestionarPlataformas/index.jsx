@@ -17,7 +17,7 @@ function GestionarPlataformas() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar Plataformas Tecnológicas
+              Administrar plataformas tecnológicas
             </Typography>
             <div className=" flex justify-between mt-5 mb-5">
               <Button onClick={()=>navegar('/crearPlataformas')} variant="contained">Crear Plataformas Tecnológicas</Button>

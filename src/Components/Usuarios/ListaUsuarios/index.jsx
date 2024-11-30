@@ -73,10 +73,10 @@ const ListaUsuarios = () => {
 
     const columns = [
         // {field: 'id', headerName: 'ID', width: 90 },
+        {field: 'username',headerName: 'Nombre de usuario', width: 220,editable: true},
         {field: 'first_name', headerName: 'Nombre', width: 220, editable: true,},
         {field: 'last_name', headerName: 'Apellidos', width: 220, editable: true,},
         {field: 'role', headerName: 'Rol', width: 170, editable: true,},
-        {field: 'username',headerName: 'Nombre de usuario', width: 220,editable: true},
         {
           field: 'actions',
           headerName: 'Acciones',

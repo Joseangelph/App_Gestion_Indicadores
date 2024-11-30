@@ -39,7 +39,7 @@ const FormCrearEvaluacionIndicador = ({ agregarEvaluacion, seleccionesIndicadore
 
   return (
     
-    <Box className="form-container flex flex-col items-center justify-center mt-10 rounded-lg">
+    <Box className="form-container flex flex-col items-center justify-center rounded-lg">
       <div className="w-full max-w-lg p-1">
         
         {/* Contenedor con display flex para los dos selects */}

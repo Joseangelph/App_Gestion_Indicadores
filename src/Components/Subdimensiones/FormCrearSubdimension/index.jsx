@@ -91,7 +91,7 @@ const FormCrearSubdimension = () => {
         Registrar Subdimensiones
       </Typography>
       
-      <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
+      <form onSubmit={handleSubmit} className="w-full p-1">
         <TextField
           label="Nombre"
           name="nombre"

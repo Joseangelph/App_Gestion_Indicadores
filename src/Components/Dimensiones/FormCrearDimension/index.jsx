@@ -126,7 +126,7 @@ return (
         Registrar dimensiones
       </Typography>
       
-      <form onSubmit={handleSubmit} className="w-full max-w-xs p-1">
+      <form onSubmit={handleSubmit} className="w-full p-1">
         <TextField
           label="Nombre"
           name="nombre"
@@ -246,7 +246,7 @@ return (
         <DialogTitle>{"Dimension creada"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            La dimensión ha sido creado exitosamente.
+            La dimensión ha sido creada exitosamente.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

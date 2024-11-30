@@ -17,7 +17,7 @@ function GestionarComponentes() {
               className="text-4xl font-bold text-blue-600"
               sx={{ fontFamily: 'Roboto, sans-serif', marginTop:5 }}
               >
-              Gestionar componentes
+              Administrar componentes
             </Typography>
             <div className=" flex justify-between mt-5 mb-5">
               <Button onClick={()=>navegar('/crearComponentes')} variant="contained">Crear Componentes</Button>
